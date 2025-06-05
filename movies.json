@@ -1,38 +1,29 @@
 [
   {
-    "id": "1",
-    "title": "K.G.F",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8xbp-K3ub2eBHlQ9qB3ZXhl_z3EZSD4QtB8sMOBHADR6J8WZrcwiawi6x&s=10",
-    "video": "https://pixeldra.in/api/file/2ghPTUyu?download",
-    "review": "This is a short review.",
-    "category": "Action",
+    "id": "movie-001",
+    "title": "Pathaan (2023)",
+    "poster": "http://example.com/poster1.jpg",
+    "video": "http://example.com/pathaan.mp4",
+    "review": "A thrilling action film starring Shah Rukh Khan.",
+    "category": "Hindi",
     "type": "movie"
-  }
+  },
   {
-    "id": "2",
-    "title": "K.G.F",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8xbp-K3ub2eBHlQ9qB3ZXhl_z3EZSD4QtB8sMOBHADR6J8WZrcwiawi6x&s=10",
-    "video": "https://pixeldra.in/api/file/2ghPTUyu?download",
-    "review": "This is a short review.",
-    "category": "Action",
-    "type": "movie"
-  }
+    "id": "series-001",
+    "title": "Money Heist (Season 1)",
+    "poster": "http://example.com/poster2.jpg",
+    "video": "http://example.com/moneyheist.m3u8",
+    "review": "A gripping Spanish heist drama series.",
+    "category": "Web Series",
+    "type": "series"
+  },
   {
-    "id": "3",
-    "title": "K.G.F",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8xbp-K3ub2eBHlQ9qB3ZXhl_z3EZSD4QtB8sMOBHADR6J8WZrcwiawi6x&s=10",
-    "video": "https://pixeldra.in/api/file/2ghPTUyu?download",
-    "review": "This is a short review.",
-    "category": "Action",
-    "type": "movie"
-  }
-  {
-    "id": "4",
-    "title": "K.G.F",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8xbp-K3ub2eBHlQ9qB3ZXhl_z3EZSD4QtB8sMOBHADR6J8WZrcwiawi6x&s=10",
-    "video": "https://pixeldra.in/api/file/2ghPTUyu?download",
-    "review": "This is a short review.",
-    "category": "Action",
+    "id": "movie-002",
+    "title": "Avengers: Endgame",
+    "poster": "http://example.com/poster3.jpg",
+    "video": "http://example.com/endgame.mp4",
+    "review": "Marvel’s epic conclusion to the Avengers saga.",
+    "category": "English",
     "type": "movie"
   }
 ]
