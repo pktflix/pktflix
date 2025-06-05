@@ -1,42 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MovieFlix</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PKT Flix - Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #111; color: #fff; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #000; position: sticky; top: 0; z-index: 100; }
+    .site-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00ffcc;
+      animation: logoFlash 2s infinite alternate;
+    }
+    @keyframes logoFlash {
+      0% { text-shadow: 0 0 5px #00ffcc; }
+      100% { text-shadow: 0 0 20px #00ffcc; }
+    }
+    #datetime { font-size: 1rem; color: #ccc; }
+    .search-box { text-align: center; padding: 10px; }
+    .search-box input {
+      width: 90%; max-width: 500px;
+      padding: 10px; border: none; border-radius: 5px;
+      font-size: 1rem;
+    }
+    .section { padding: 20px; }
+    .movie-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
+    .movie-card img { width: 100%; border-radius: 10px; }
+    .movie-card p { text-align: center; margin: 5px 0 0; color: #fff; }
+    .category-buttons { display: flex; flex-wrap: wrap; gap: 10px; padding: 10px; }
+    .category-buttons button {
+      background: linear-gradient(45deg, #ff0057, #ffcc00);
+      color: #000;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .category-buttons button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px #ffcc00;
+    }
+    a { text-decoration: none; color: inherit; }
+    @media (max-width: 600px) {
+      .movie-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
+    <div class="site-name"><a href="index.html">PKT Flix</a></div>
     <div id="datetime"></div>
-    <div class="site-name">MovieFlix</div>
-  </header>
-
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search movies or series..." />
-  </div>
-
-  <section class="section">
+  </header>  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Search movies...">
+  </div>  <section class="section">
     <h2>🔥 Popular Movies</h2>
-    <div class="grid" id="popular"></div>
-  </section>
-
-  <section class="section">
+    <div class="movie-grid" id="popular"></div>
+  </section>  <section class="section">
     <h2>🆕 Recently Added</h2>
-    <div class="grid" id="recent"></div>
-  </section>
-
-  <section class="section">
+    <div class="movie-grid" id="recent"></div>
+  </section>  <section class="section">
     <h2>🎬 Web Series</h2>
-    <div class="grid" id="series"></div>
-  </section>
-
-  <section class="section">
+    <div class="movie-grid" id="series"></div>
+  </section>  <section class="section">
     <h2>📂 Categories</h2>
-    <div id="categories"></div>
-    <div class="grid" id="filtered"></div>
-  </section>
+    <div id="categories" class="category-buttons"></div>
+  </section>  <section class="section">
+    <h2>🎞️ All Movies</h2>
+    <div class="movie-grid" id="allMovies"></div>
+  </section>  <script>
+    setInterval(() => {
+      const now = new Date();
+      const formatted = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + now.toLocaleTimeString();
+      document.getElementById("datetime").innerText = formatted;
+    }, 1000);
 
-  <script src="js/main.js"></script>
-</body>
+    let allMovies = [];
+    let categoryClicked = false;
+
+    fetch("movies.json")
+      .then(res => res.json())
+      .then(data => {
+        allMovies = data;
+
+        // Popular (first 6)
+        const popular = data.slice(0, 6);
+        renderMovies(popular, "popular");
+
+        // Recently added (last 6)
+        const recent = data.slice(-6).reverse();
+        renderMovies(recent, "recent");
+
+        // Series (category === Web Series)
+        const series = data.filter(m => m.category.toLowerCase().includes("series"));
+        renderMovies(series.slice(0, 15), "series");
+
+        // All
+        renderMovies(data.slice(0, 30), "allMovies");
+
+        // Categories
+        const cats = [...new Set(data.map(m => m.category))];
+        const catDiv = document.getElementById("categories");
+        cats.forEach(cat => {
+          const btn = document.createElement("button");
+          btn.innerText = cat;
+          btn.onclick = () => {
+            categoryClicked = true;
+            const filtered = data.filter(m => m.category === cat);
+            document.getElementById("allMovies").innerHTML = "";
+            renderMovies(filtered, "allMovies");
+          }
+          catDiv.appendChild(btn);
+        });
+      });
+
+    function renderMovies(movies, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      movies.forEach(movie => {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.innerHTML = `
+          <a href="watch.html?id=${movie.id}">
+            <img src="${movie.poster}" alt="${movie.title}">
+            <p>${movie.title}</p>
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      if (!categoryClicked) return;
+      const keyword = e.target.value.toLowerCase();
+      const filtered = allMovies.filter(m => m.title.toLowerCase().includes(keyword));
+      renderMovies(filtered, "allMovies");
+    });
+  </script></body>
 </html>
