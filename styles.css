@@ -111,3 +111,35 @@ button {
   70% { transform: scale(1.05); box-shadow: 0 0 10px 10px rgba(255,78,80, 0); }
   100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,78,80, 0); }
 }
+.related-movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.related-item {
+  width: 120px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.related-item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.rating-section {
+  margin: 15px 0;
+}
+
+.tags {
+  color: #ccc;
+  font-style: italic;
+}
+
+.site-name a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 22px;
+}
