@@ -1,77 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title id="movieTitle">Loading...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Watch and download movies on PKT Flix. Stream your favorite content easily." />
+  <title>PKT Flix - Watch</title>
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Cleppr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cleppr-player@latest/cleppr.min.css" />
-</head>
-<body>
-  <header class="header">
-    <div class="logo"><a href="index.html" class="animated-logo">🎬 PKT Flix</a></div>
-    <div class="datetime" id="datetime"></div>
-  </header>
-
-  <main class="watch-container" style="padding: 20px;">
-    <h1 id="movieName">Movie Name</h1>
-    <img id="moviePoster" src="" alt="Poster" style="max-width: 200px; border-radius: 10px; margin: 10px 0;" />
-
-    <div id="videoPlayer" style="margin: 20px 0;">
-      <video id="cleppr" class="cleppr-player" controls></video>
-    </div>
-
-    <p id="viewCount">👁 Viewed: 0</p>
-
-    <div class="review-box" style="margin: 15px 0; padding: 10px; border-left: 4px solid #ff2e63; background: #1a1a1a;">
-      <strong>Review:</strong>
-      <p id="movieReview">Loading review...</p>
-    </div>
-
-    <button id="downloadBtn" class="animated-btn">⬇ Download</button>
-  </main>
-
-  <!-- Cleppr JS -->
-  <script src="https://cdn.jsdelivr.net/npm/cleppr-player@latest/cleppr.min.js"></script>
-  <!-- Custom Logic -->
-  <script>
-    // Clock
-    setInterval(() => {
-      const now = new Date();
-      document.getElementById("datetime").textContent = now.toLocaleString("en-GB");
-    }, 1000);
-
-    // Load selected movie
-    const movie = JSON.parse(localStorage.getItem("selectedMovie"));
-    if (!movie) {
-      document.body.innerHTML = "<h2 style='padding:20px;'>No movie selected.</h2>";
-    } else {
-      document.getElementById("movieName").textContent = movie.name;
-      document.getElementById("movieTitle").textContent = movie.name;
-      document.getElementById("moviePoster").src = movie.poster;
-      document.getElementById("movieReview").textContent = movie.review;
-
-      // View Counter
-      const countKey = `viewCount_${movie.id}`;
-      let views = localStorage.getItem(countKey) || 0;
-      views++;
-      localStorage.setItem(countKey, views);
-      document.getElementById("viewCount").textContent = `👁 Viewed: ${views}`;
-
-      // Initialize Cleppr Player
-      const player = new Cleppr('#cleppr', {
-        source: movie.video,
-        autoplay: false
-      });
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cleppr@latest/dist/cleppr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/cleppr@latest/dist/cleppr.min.js"></script>
+  <style>
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #121212;
+      color: #fff;
     }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { color: #ff0055; }
+      50% { color: #00ffff; }
+      100% { color: #ff0055; }
+    }
+    .container {
+      padding: 10px;
+      color: #fff;
+    }
+    video {
+      width: 100%;
+      max-height: 400px;
+      margin: 10px 0;
+    }
+    .download-button {
+      padding: 10px 20px;
+      background: #ff0066;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 5px #ff0066; }
+      to { box-shadow: 0 0 20px #ff0066; }
+    }
+    .view-count {
+      font-size: 14px;
+      color: #aaa;
+    }
+    .review-box {
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body style="background-color: #000; color: #fff;">
+  <header>
+    <div class="logo"><a href="index.html" style="color:inherit; text-decoration:none;">PKT Flix</a></div>
+    <div id="clock"></div>
+  </header>  <div class="container">
+    <h1 id="movie-title">Loading...</h1>
+    <img id="poster" src="" alt="Poster" style="width: 200px; height:auto; border-radius:10px;" />
+    <video id="videoPlayer" class="cleppr" controls autoplay></video>
+    <div class="view-count" id="viewCount">Views: 0</div>
+    <div class="review-box" id="review">Loading review...</div>
+    <br>
+    <button class="download-button" id="downloadBtn">Download Movie</button>
+  </div>  <script>
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const formatted = now.toLocaleDateString("en-GB", { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' }) +
+                        ' ' + now.toLocaleTimeString();
+      document.getElementById("clock").textContent = formatted;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    // Download button
-    document.getElementById("downloadBtn").addEventListener("click", () => {
-      localStorage.setItem("downloadMovie", JSON.stringify(movie));
-      window.location.href = "download.html";
-    });
-  </script>
-</body>
+    // Load movie from JSON
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = parseInt(urlParams.get('id'));
+
+    fetch('assets/movies.json')
+      .then(res => res.json())
+      .then(movies => {
+        const movie = movies.find(m => m.id === movieId);
+        if (movie) {
+          document.getElementById('movie-title').innerText = movie.name;
+          document.getElementById('poster').src = movie.poster;
+          document.getElementById('review').innerText = movie.review;
+          document.getElementById('videoPlayer').src = movie.video;
+          Cleppr.setup(document.getElementById('videoPlayer'));
+
+          // View count
+          const views = localStorage.getItem('view_' + movieId) || 0;
+          const newViews = parseInt(views) + 1;
+          localStorage.setItem('view_' + movieId, newViews);
+          document.getElementById('viewCount').innerText = 'Views: ' + newViews;
+
+          // Download button
+          document.getElementById('downloadBtn').addEventListener('click', () => {
+            window.location.href = `download.html?id=${movie.id}`;
+          });
+        } else {
+          document.getElementById('movie-title').innerText = 'Movie not found';
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('movie-title').innerText = 'Failed to load movie';
+      });
+  </script></body>
 </html>
