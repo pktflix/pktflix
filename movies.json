@@ -2,8 +2,8 @@
   {
     "id": "movie1",
     "title": "Example Movie",
-    "link": "http://example.com/video.mp4",
-    "poster": "http://example.com/poster.jpg",
+    "link": "https://pixeldra.in/api/file/pbY41f5x?download",
+    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhCfyXtme4Ax2PDzcSvzpKNJYL7OSc9uSynSePoUHr_7TKBLsf3mrX5mM&s=10",
     "review": "This is an example movie with full description."
   }
 ]
