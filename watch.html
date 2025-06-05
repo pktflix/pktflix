@@ -2,115 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Watch movie online - Full HD streaming and download option.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title id="movieTitle">Loading...</title>
-
-  <!-- Cleppr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cleppr/dist/cleppr.min.css">
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #111; color: #fff; }
-    header { display: flex; justify-content: space-between; padding: 10px 20px; background: #222; align-items: center; }
-    .logo { font-size: 24px; font-weight: bold; color: #00ffe1; animation: pulse 2s infinite; cursor: pointer; }
-    @keyframes pulse {
-      0% { text-shadow: 0 0 5px #0ff; }
-      50% { text-shadow: 0 0 15px #0ff; }
-      100% { text-shadow: 0 0 5px #0ff; }
-    }
-    #clock { font-size: 14px; }
-    .container { padding: 20px; }
-    h1 { font-size: 24px; margin-bottom: 10px; }
-    #poster { width: 100%; max-width: 300px; margin-bottom: 10px; border-radius: 8px; }
-    #cleppr-player { margin: 20px 0; }
-    .review { background: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-    .view-count { font-size: 14px; color: #ccc; margin-bottom: 10px; }
-    .download-btn {
-      display: inline-block;
-      background: linear-gradient(to right, #00f260, #0575e6);
-      color: white;
-      padding: 12px 20px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cleppr-player@latest/cleppr.min.css">
+  <script defer src="assets/watch.js"></script>
 </head>
 <body>
-  <header>
-    <div class="logo" onclick="goHome()">PKT Flix</div>
-    <div id="clock">Loading time...</div>
+  <header class="header">
+    <div class="logo"><a href="index.html" class="animated-logo">🎬 PKT Flix</a></div>
+    <div class="datetime" id="datetime"></div>
   </header>
 
-  <div class="container">
-    <h1 id="movieName">Loading...</h1>
-    <img id="poster" src="" alt="Movie Poster">
-    <div id="cleppr-player"></div>
-    <div class="view-count">👁️ Views: <span id="viewCount">0</span></div>
-    <div class="review" id="reviewBox">Loading review...</div>
-    <a id="downloadBtn" class="download-btn" href="#" target="_blank">⬇ Download Movie</a>
-  </div>
+  <main class="watch-container" style="padding: 20px;">
+    <h1 id="movieName">Movie Name</h1>
+    <img id="moviePoster" src="" alt="Poster" style="max-width: 200px; border-radius: 10px; margin: 10px 0;" />
 
-  <!-- Cleppr JS -->
-  <script src="https://cdn.jsdelivr.net/npm/cleppr/dist/cleppr.min.js"></script>
+    <div id="videoPlayer" style="margin: 20px 0;">
+      <video id="cleppr" controls class="cleppr-player" style="width: 100%; max-width: 800px;"></video>
+    </div>
 
-  <script>
-    // Clock
-    function updateClock() {
-      const now = new Date();
-      const formatted = now.toLocaleString('en-GB');
-      document.getElementById('clock').textContent = formatted;
-    }
-    setInterval(updateClock, 1000); updateClock();
+    <p id="viewCount">👁 Viewed: 0</p>
 
-    // Go Home
-    function goHome() {
-      window.location.href = 'index.html';
-    }
+    <div class="review-box" style="margin: 15px 0; padding: 10px; border-left: 4px solid #ff2e63; background: #1a1a1a;">
+      <strong>Review:</strong>
+      <p id="movieReview">Loading review...</p>
+    </div>
 
-    // Get movie ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const movieId = urlParams.get("id");
-
-    // Load movie from JSON
-    fetch("data/movies.json")
-      .then(res => res.json())
-      .then(data => {
-        const movie = data.find(m => m.id == movieId);
-        if (!movie) {
-          document.getElementById('movieName').textContent = "Movie not found!";
-          return;
-        }
-
-        // Set SEO title
-        document.title = `${movie.name} | PKT Flix`;
-        document.getElementById('movieName').textContent = movie.name;
-        document.getElementById('poster').src = movie.poster;
-        document.getElementById('reviewBox').textContent = movie.review;
-        document.getElementById('downloadBtn').href = `download.html?id=${movie.id}`;
-
-        // Load Cleppr Player
-        new Cleppr('#cleppr-player', {
-          sources: [{ src: movie.video, type: "video/mp4" }],
-          autoplay: true,
-          controls: true,
-        });
-
-        // View count using localStorage
-        const viewKey = `viewed_${movieId}`;
-        if (!localStorage.getItem(viewKey)) {
-          let views = parseInt(localStorage.getItem("views_" + movieId)) || 0;
-          views++;
-          localStorage.setItem("views_" + movieId, views);
-          localStorage.setItem(viewKey, "1");
-        }
-        document.getElementById("viewCount").textContent =
-          localStorage.getItem("views_" + movieId) || 1;
-      });
-  </script>
+    <button id="downloadBtn" class="animated-btn">⬇ Download</button>
+  </main>
 </body>
 </html>
