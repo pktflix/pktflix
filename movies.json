@@ -1,14 +1,18 @@
 [
   {
-    "title": "Action Movie 1",
+    "title": "Jawan",
+    "poster": "https://example.com/posters/jawan.jpg",
+    "video": "https://example.com/videos/jawan.mp4",
+    "review": "A high-octane action thriller starring Shah Rukh Khan.",
     "category": "Action",
-    "poster": "assets/posters/movie1.jpg",
-    "video": "downloads/movie1.mp4"
+    "type": "movie"
   },
   {
-    "title": "Romantic Movie 1",
-    "category": "Romantic",
-    "poster": "assets/posters/movie2.jpg",
-    "video": "downloads/movie2.mp4"
+    "title": "Money Heist",
+    "poster": "https://example.com/posters/money-heist.jpg",
+    "video": "https://example.com/videos/money-heist.mp4",
+    "review": "A gang of robbers carry out the biggest heist in history.",
+    "category": "Thriller",
+    "type": "series"
   }
 ]
