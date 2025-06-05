@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Example Movie",
+    "name": "Example Movie 1",
     "poster": "http://example.com/poster.jpg",
     "video": "http://wt.mirosfresh.info:8080/live/zeqirhisenaj/3XHKKC3pgG/227.ts",
     "review": "This is a sample movie with drama and action. Worth watching!"
@@ -9,7 +9,7 @@
   
   {
     "id": 2,
-    "name": "Example Movie",
+    "name": "Example Movie 2",
     "poster": "http://example.com/poster.jpg",
     "video": "http://103.145.48.150:90/laosat24/filmytv/index.m3u8",
     "review": "This is a sample movie with drama and action. Worth watching!"
@@ -17,7 +17,7 @@
   
   {
     "id": 3,
-    "name": "Example Movie",
+    "name": "Example Movie 3",
     "poster": "http://example.com/poster.jpg",
     "video": "http://live.geoiptv.org:8880/movie/rodney/rodney12345/915909.mp4",
     "review": "This is a sample movie with drama and action. Worth watching!"
