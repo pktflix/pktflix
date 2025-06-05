@@ -1,23 +1,25 @@
 [
   {
-    "id": "movie1",
-    "title": "Avatar ",
-    "link": "http://live.geoiptv.org:8880/movie/rodney/rodney12345/915909.mp4",
-    "poster": "https://i.imgur.com/Nl5XQ1r.jpeg",
-    "review": "Avatar 2 is an epic science fiction film by James Cameron."
+    "id": 1,
+    "name": "Example Movie",
+    "poster": "http://example.com/poster.jpg",
+    "video": "http://wt.mirosfresh.info:8080/live/zeqirhisenaj/3XHKKC3pgG/227.ts",
+    "review": "This is a sample movie with drama and action. Worth watching!"
   },
-    {
-    "id": "movie1",
-    "title": "Avatar 2",
-    "link": "http://103.145.48.150:90/laosat24/filmytv/index.m3u8",
-    "poster": "https://i.imgur.com/Nl5XQ1r.jpeg",
-    "review": "Avatar 2 is an epic science fiction film by James Cameron."
+  
+  {
+    "id": 2,
+    "name": "Example Movie",
+    "poster": "http://example.com/poster.jpg",
+    "video": "http://103.145.48.150:90/laosat24/filmytv/index.m3u8",
+    "review": "This is a sample movie with drama and action. Worth watching!"
   },
-    {
-    "id": "movie1",
-    "title": "Avatar 3",
-    "link": "http://wt.mirosfresh.info:8080/live/zeqirhisenaj/3XHKKC3pgG/227.ts",
-    "poster": "https://i.imgur.com/Nl5XQ1r.jpeg",
-    "review": "Avatar 2 is an epic science fiction film by James Cameron."
+  
+  {
+    "id": 3,
+    "name": "Example Movie",
+    "poster": "http://example.com/poster.jpg",
+    "video": "http://live.geoiptv.org:8880/movie/rodney/rodney12345/915909.mp4",
+    "review": "This is a sample movie with drama and action. Worth watching!"
   }
 ]
