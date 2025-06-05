@@ -1,29 +1,9 @@
 [
   {
-    "id": "movie-001",
-    "title": "Pathaan (2023)",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdVp_prUGvgMYSaVbbgMtQnWxddRRskRHCP99Lgus99grIZWMq-hMCf3ch&s=10",
-    "video": "http://nonamevos.com/movie/0112/0112/196635.mp4",
-    "review": "A thrilling action film starring Shah Rukh Khan.",
-    "category": "Hindi",
-    "type": "movie"
-  },
-  {
-    "id": "series-001",
-    "title": "TnT Sports",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDM4fffA_CGA6wojb-0r-ekbF1JLCYsYzlzdox8UeURMlacX4zZHfcBxkg&s=10",
-    "video": "http://nonamevos.com/live/0112/0112/22907.ts",
-    "review": "A gripping Spanish heist drama series.",
-    "category": "Web Series",
-    "type": "series"
-  },
-  {
-    "id": "movie-002",
-    "title": "Avengers: Endgame",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhCfyXtme4Ax2PDzcSvzpKNJYL7OSc9uSynSePoUHr_7TKBLsf3mrX5mM&s=10",
-    "video": "https://pixeldra.in/api/file/pbY41f5x?download",
-    "review": "Marvel’s epic conclusion to the Avengers saga.",
-    "category": "Hindi",
-    "type": "movie"
+    "id": "movie1",
+    "title": "Example Movie",
+    "link": "http://example.com/video.mp4",
+    "poster": "http://example.com/poster.jpg",
+    "review": "This is an example movie with full description."
   }
 ]
