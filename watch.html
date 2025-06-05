@@ -1,52 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="pageTitle">Watch Movie</title>
+  <title>PKT Flix - Watch</title>
   <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="" id="metaDescription">
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
-    <div class="site-name">PKT Flix</div>
+    <div class="site-name"><a href="index.html">PKT Flix</a></div>
     <div id="datetime"></div>
-  </header>
-
-  <div class="container">
-    <!-- Title -->
+  </header>  <div class="container">
     <h1 id="title" class="movie-title"></h1>
+    <p id="tags" class="tags"></p><div class="poster-container">
+  <img id="poster" alt="Movie Poster" class="poster-img" />
+</div>
 
-    <!-- Poster -->
-    <div class="poster-container">
-      <img id="poster" alt="Movie Poster" class="poster-img"/>
-    </div>
+<video id="video" controls class="video-player"></video>
 
-    <!-- Video Player -->
-    <video id="video" controls width="100%" class="video-player"></video>
+<div class="view-count" id="viewCount">👁️ 0 views</div>
 
-    <!-- View Count -->
-    <div id="viewCount" class="view-count">👁️ 0 views</div>
+<div class="review-box">
+  <h3>📝 Review</h3>
+  <p id="review"></p>
+</div>
 
-    <!-- Review -->
-    <div class="review-box">
-      <h3>📝 Review</h3>
-      <p id="review"></p>
-    </div>
+<div class="rating-section">
+  <label>⭐ Rate this movie:</label>
+  <div id="stars"></div>
+</div>
 
-    <!-- Download Button -->
-    <a id="downloadBtn" class="download-btn animated-btn">⬇️ Download Now</a>
-  </div>
+<a id="downloadBtn" class="download-btn animated-btn">⬇️ Download Now</a>
+<button id="watchLaterBtn">➕ Watch Later</button>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="js/watch.js"></script>
-  <script>
-    // Clock
+<h3>🔁 Related Movies</h3>
+<div id="related" class="related-movies"></div>
+
+<div id="disqus_thread" style="margin-top:40px;"></div>
+
+  </div>  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script>
     setInterval(() => {
-      const now = new Date();
-      document.getElementById('datetime').innerText = now.toLocaleString();
+      document.getElementById('datetime').innerText = new Date().toLocaleString();
     }, 1000);
-  </script>
-</body>
+
+    function getParam(param) {
+      return new URLSearchParams(window.location.search).get(param);
+    }
+
+    fetch("movies.json")
+      .then(res => res.json())
+      .then(data => {
+        const id = getParam("id");
+        const movie = data.find(m => m.id === id);
+        if (!movie) return;
+
+        document.getElementById("title").innerText = movie.title;
+        document.getElementById("poster").src = movie.poster;
+        document.getElementById("review").innerText = movie.review;
+        document.getElementById("tags").innerText = `🎯 Genre: ${movie.category}`;
+        document.title = `${movie.title} | PKT Flix`;
+        document.getElementById("downloadBtn").href = `download.html?link=${encodeURIComponent(movie.video)}`;
+
+        const video = document.getElementById("video");
+        if (Hls.isSupported() && movie.video.endsWith(".m3u8")) {
+          const hls = new Hls();
+          hls.loadSource(movie.video);
+          hls.attachMedia(video);
+        } else {
+          video.src = movie.video;
+        }
+
+        const viewKey = `viewed-${id}`;
+        let views = localStorage.getItem(viewKey) ? parseInt(localStorage.getItem(`${viewKey}-count`)) : 0;
+        if (!localStorage.getItem(viewKey)) {
+          views += Math.floor(Math.random() * 20) + 1;
+          localStorage.setItem(viewKey, "true");
+          localStorage.setItem(`${viewKey}-count`, views);
+        }
+        document.getElementById("viewCount").innerText = `👁️ ${views.toLocaleString()} views`;
+
+        const related = data.filter(m => m.category === movie.category && m.id !== movie.id).slice(0, 4);
+        const relatedContainer = document.getElementById("related");
+        related.forEach(r => {
+          const div = document.createElement("div");
+          div.className = "related-item";
+          div.innerHTML = `<a href="watch.html?id=${r.id}"><img src="${r.poster}" alt="${r.title}" /><p>${r.title}</p></a>`;
+          relatedContainer.appendChild(div);
+        });
+
+        document.getElementById("watchLaterBtn").addEventListener("click", () => {
+          let saved = JSON.parse(localStorage.getItem("watchLater") || "[]");
+          if (!saved.find(m => m.id === movie.id)) {
+            saved.push({ id: movie.id, title: movie.title, poster: movie.poster });
+            localStorage.setItem("watchLater", JSON.stringify(saved));
+            alert("✅ Added to Watch Later");
+          }
+        });
+
+        const starsContainer = document.getElementById("stars");
+        for (let i = 1; i <= 5; i++) {
+          const star = document.createElement("span");
+          star.innerHTML = "⭐";
+          star.style.cursor = "pointer";
+          star.onclick = () => {
+            localStorage.setItem(`rating-${id}`, i);
+            highlightStars(i);
+          };
+          starsContainer.appendChild(star);
+        }
+        const savedRating = localStorage.getItem(`rating-${id}`);
+        if (savedRating) highlightStars(savedRating);
+
+        function highlightStars(count) {
+          const stars = starsContainer.querySelectorAll("span");
+          stars.forEach((s, i) => {
+            s.style.color = i < count ? "gold" : "gray";
+          });
+        }
+      });
+  </script>  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = new URLSearchParams(location.search).get("id");
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://your-disqus-shortname.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script></body>
 </html>
