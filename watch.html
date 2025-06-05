@@ -1,132 +1,105 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PKT Flix - Watch</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { margin: 0; background: #111; color: #fff; font-family: Arial, sans-serif; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #000; }
+    .site-name { font-size: 1.5rem; font-weight: bold; color: #00ffcc; animation: logoFlash 2s infinite alternate; }
+    .site-name a { color: #00ffcc; text-decoration: none; }
+    @keyframes logoFlash {
+      0% { text-shadow: 0 0 5px #00ffcc; }
+      100% { text-shadow: 0 0 20px #00ffcc; }
+    }
+    #datetime { font-size: 1rem; color: #ccc; }
+    .container { padding: 20px; max-width: 1000px; margin: auto; }
+    .title { font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
+    .poster { max-width: 100%; border-radius: 10px; margin: 10px auto; display: block; }
+    .video-player {
+      width: 100%;
+      height: auto;
+      border: 2px solid #00ffcc;
+      border-radius: 12px;
+      background: #000;
+      margin-bottom: 10px;
+    }
+    .view-count { color: #aaa; font-size: 0.9rem; margin-bottom: 15px; text-align: center; }
+    .review-box {
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .download-btn {
+      display: block;
+      width: 200px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      background: linear-gradient(45deg, #00ffcc, #0066ff);
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      color: #000;
+      transition: 0.4s;
+    }
+    .download-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ffcc;
+    }
+    @media (max-width: 600px) {
+      .video-player { height: 220px; }
+      .title { font-size: 1.2rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
+  <div class="header">
     <div class="site-name"><a href="index.html">PKT Flix</a></div>
     <div id="datetime"></div>
-  </header>  <div class="container">
-    <h1 id="title" class="movie-title"></h1>
-    <p id="tags" class="tags"></p><div class="poster-container">
-  <img id="poster" alt="Movie Poster" class="poster-img" />
-</div>
-
-<video id="video" controls class="video-player"></video>
-
-<div class="view-count" id="viewCount">👁️ 0 views</div>
-
-<div class="review-box">
-  <h3>📝 Review</h3>
-  <p id="review"></p>
-</div>
-
-<div class="rating-section">
-  <label>⭐ Rate this movie:</label>
-  <div id="stars"></div>
-</div>
-
-<a id="downloadBtn" class="download-btn animated-btn">⬇️ Download Now</a>
-<button id="watchLaterBtn">➕ Watch Later</button>
-
-<h3>🔁 Related Movies</h3>
-<div id="related" class="related-movies"></div>
-
-<div id="disqus_thread" style="margin-top:40px;"></div>
-
-  </div>  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>  <script>
-    setInterval(() => {
-      document.getElementById('datetime').innerText = new Date().toLocaleString();
-    }, 1000);
-
-    function getParam(param) {
-      return new URLSearchParams(window.location.search).get(param);
+  </div>  <div class="container">
+    <div class="title" id="movieTitle">Loading...</div>
+    <img id="poster" class="poster" src="" alt="Movie Poster">
+    <video id="videoPlayer" class="video-player" controls autoplay preload="auto" crossorigin="anonymous"></video>
+    <div class="view-count" id="viewCount">Views: 0</div>
+    <div class="review-box" id="reviewBox">Loading review...</div>
+    <a id="downloadLink" href="#"><button class="download-btn">⬇ Download</button></a>
+  </div>  <script>
+    function updateTime() {
+      const now = new Date();
+      const formatted = now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString();
+      document.getElementById('datetime').textContent = formatted;
     }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("id");
 
     fetch("movies.json")
       .then(res => res.json())
       .then(data => {
-        const id = getParam("id");
-        const movie = data.find(m => m.id === id);
-        if (!movie) return;
+        const movie = data.find(m => m.id === movieId);
+        if (!movie) return alert("Movie not found");
 
-        document.getElementById("title").innerText = movie.title;
+        document.getElementById("movieTitle").textContent = movie.title;
+        document.title = movie.title + " - PKT Flix";
         document.getElementById("poster").src = movie.poster;
-        document.getElementById("review").innerText = movie.review;
-        document.getElementById("tags").innerText = `🎯 Genre: ${movie.category}`;
-        document.title = `${movie.title} | PKT Flix`;
-        document.getElementById("downloadBtn").href = `download.html?link=${encodeURIComponent(movie.video)}`;
+        document.getElementById("videoPlayer").src = movie.link;
+        document.getElementById("reviewBox").textContent = movie.review || "No review available.";
+        document.getElementById("downloadLink").href = `download.html?id=${movie.id}`;
 
-        const video = document.getElementById("video");
-        if (Hls.isSupported() && movie.video.endsWith(".m3u8")) {
-          const hls = new Hls();
-          hls.loadSource(movie.video);
-          hls.attachMedia(video);
-        } else {
-          video.src = movie.video;
-        }
-
-        const viewKey = `viewed-${id}`;
-        let views = localStorage.getItem(viewKey) ? parseInt(localStorage.getItem(`${viewKey}-count`)) : 0;
-        if (!localStorage.getItem(viewKey)) {
-          views += Math.floor(Math.random() * 20) + 1;
-          localStorage.setItem(viewKey, "true");
-          localStorage.setItem(`${viewKey}-count`, views);
-        }
-        document.getElementById("viewCount").innerText = `👁️ ${views.toLocaleString()} views`;
-
-        const related = data.filter(m => m.category === movie.category && m.id !== movie.id).slice(0, 4);
-        const relatedContainer = document.getElementById("related");
-        related.forEach(r => {
-          const div = document.createElement("div");
-          div.className = "related-item";
-          div.innerHTML = `<a href="watch.html?id=${r.id}"><img src="${r.poster}" alt="${r.title}" /><p>${r.title}</p></a>`;
-          relatedContainer.appendChild(div);
-        });
-
-        document.getElementById("watchLaterBtn").addEventListener("click", () => {
-          let saved = JSON.parse(localStorage.getItem("watchLater") || "[]");
-          if (!saved.find(m => m.id === movie.id)) {
-            saved.push({ id: movie.id, title: movie.title, poster: movie.poster });
-            localStorage.setItem("watchLater", JSON.stringify(saved));
-            alert("✅ Added to Watch Later");
-          }
-        });
-
-        const starsContainer = document.getElementById("stars");
-        for (let i = 1; i <= 5; i++) {
-          const star = document.createElement("span");
-          star.innerHTML = "⭐";
-          star.style.cursor = "pointer";
-          star.onclick = () => {
-            localStorage.setItem(`rating-${id}`, i);
-            highlightStars(i);
-          };
-          starsContainer.appendChild(star);
-        }
-        const savedRating = localStorage.getItem(`rating-${id}`);
-        if (savedRating) highlightStars(savedRating);
-
-        function highlightStars(count) {
-          const stars = starsContainer.querySelectorAll("span");
-          stars.forEach((s, i) => {
-            s.style.color = i < count ? "gold" : "gray";
-          });
-        }
+        // view count
+        const viewKey = `views_${movie.id}`;
+        let views = localStorage.getItem(viewKey);
+        if (!views) views = 1;
+        else views = parseInt(views) + 1;
+        localStorage.setItem(viewKey, views);
+        document.getElementById("viewCount").textContent = `Views: ${views}`;
       });
-  </script>  <script>
-    var disqus_config = function () {
-      this.page.url = window.location.href;
-      this.page.identifier = new URLSearchParams(location.search).get("id");
-    };
-    (function () {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://your-disqus-shortname.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
   </script></body>
 </html>
