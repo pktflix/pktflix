@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title id="movieTitle">Loading...</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cleppr-player@latest/cleppr.min.css">
-  <script defer src="assets/watch.js"></script>
+
+  <!-- Cleppr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cleppr-player@latest/cleppr.min.css" />
 </head>
 <body>
   <header class="header">
@@ -19,7 +20,7 @@
     <img id="moviePoster" src="" alt="Poster" style="max-width: 200px; border-radius: 10px; margin: 10px 0;" />
 
     <div id="videoPlayer" style="margin: 20px 0;">
-      <video id="cleppr" controls class="cleppr-player" style="width: 100%; max-width: 800px;"></video>
+      <video id="cleppr" class="cleppr-player" controls></video>
     </div>
 
     <p id="viewCount">👁 Viewed: 0</p>
@@ -31,5 +32,46 @@
 
     <button id="downloadBtn" class="animated-btn">⬇ Download</button>
   </main>
+
+  <!-- Cleppr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/cleppr-player@latest/cleppr.min.js"></script>
+  <!-- Custom Logic -->
+  <script>
+    // Clock
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById("datetime").textContent = now.toLocaleString("en-GB");
+    }, 1000);
+
+    // Load selected movie
+    const movie = JSON.parse(localStorage.getItem("selectedMovie"));
+    if (!movie) {
+      document.body.innerHTML = "<h2 style='padding:20px;'>No movie selected.</h2>";
+    } else {
+      document.getElementById("movieName").textContent = movie.name;
+      document.getElementById("movieTitle").textContent = movie.name;
+      document.getElementById("moviePoster").src = movie.poster;
+      document.getElementById("movieReview").textContent = movie.review;
+
+      // View Counter
+      const countKey = `viewCount_${movie.id}`;
+      let views = localStorage.getItem(countKey) || 0;
+      views++;
+      localStorage.setItem(countKey, views);
+      document.getElementById("viewCount").textContent = `👁 Viewed: ${views}`;
+
+      // Initialize Cleppr Player
+      const player = new Cleppr('#cleppr', {
+        source: movie.video,
+        autoplay: false
+      });
+    }
+
+    // Download button
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      localStorage.setItem("downloadMovie", JSON.stringify(movie));
+      window.location.href = "download.html";
+    });
+  </script>
 </body>
 </html>
