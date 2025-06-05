@@ -3,18 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Watch</title>
+  <title id="pageTitle">Watch Movie</title>
   <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="" id="metaDescription">
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="site-name">PKT Flix</div>
+    <div id="datetime"></div>
+  </header>
+
   <div class="container">
-    <h2 id="title"></h2>
-    <p id="review"></p>
-    <video id="video" controls width="100%"></video>
-    <br><br>
-    <a id="downloadBtn" class="download-btn">Download</a>
+    <!-- Title -->
+    <h1 id="title" class="movie-title"></h1>
+
+    <!-- Poster -->
+    <div class="poster-container">
+      <img id="poster" alt="Movie Poster" class="poster-img"/>
+    </div>
+
+    <!-- Video Player -->
+    <video id="video" controls width="100%" class="video-player"></video>
+
+    <!-- View Count -->
+    <div id="viewCount" class="view-count">👁️ 0 views</div>
+
+    <!-- Review -->
+    <div class="review-box">
+      <h3>📝 Review</h3>
+      <p id="review"></p>
+    </div>
+
+    <!-- Download Button -->
+    <a id="downloadBtn" class="download-btn animated-btn">⬇️ Download Now</a>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="js/watch.js"></script>
+  <script>
+    // Clock
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('datetime').innerText = now.toLocaleString();
+    }, 1000);
+  </script>
 </body>
 </html>
