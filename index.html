@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MovieFlix</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>🎬 MovieFlix</h1>
+    <input type="text" id="searchInput" placeholder="🔍 মুভি খুঁজুন...">
+    <select id="categoryFilter">
+      <option value="All">সকল ক্যাটাগরি</option>
+      <option value="Action">অ্যাকশন</option>
+      <option value="Drama">ড্রামা</option>
+      <option value="Comedy">কমেডি</option>
+      <option value="Romantic">রোমান্টিক</option>
+    </select>
+  </header>
+
+  <main class="movie-grid" id="movieList">
+    <!-- Movies will load here by JS -->
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
