@@ -10,9 +10,9 @@
   },
   {
     "id": "series-001",
-    "title": "Money Heist (Season 1)",
-    "poster": "http://example.com/poster2.jpg",
-    "video": "http://example.com/moneyheist.m3u8",
+    "title": "TnT Sports",
+    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDM4fffA_CGA6wojb-0r-ekbF1JLCYsYzlzdox8UeURMlacX4zZHfcBxkg&s=10",
+    "video": "http://nonamevos.com/live/0112/0112/22907.ts",
     "review": "A gripping Spanish heist drama series.",
     "category": "Web Series",
     "type": "series"
