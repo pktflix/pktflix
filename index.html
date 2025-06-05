@@ -4,168 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PKT Flix - Home</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      margin: 0; font-family: Arial, sans-serif; background: #111; color: #fff;
-    }
-    header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 20px; background: #222;
-    }
-    .logo {
-      font-size: 24px; font-weight: bold; color: #00f0ff;
-      animation: pulse 1.5s infinite; cursor: pointer;
-    }
-    @keyframes pulse {
-      0% { text-shadow: 0 0 5px #0ff; }
-      50% { text-shadow: 0 0 15px #0ff; }
-      100% { text-shadow: 0 0 5px #0ff; }
-    }
-    .clock { font-size: 14px; color: #ccc; }
-    .search-bar {
-      padding: 10px 20px;
-    }
-    .search-bar input {
-      width: 100%; padding: 10px; border-radius: 8px; border: none;
-      font-size: 16px;
-    }
-    .section-title {
-      margin: 20px; font-size: 20px; font-weight: bold;
-    }
-    .movie-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 15px;
-      padding: 0 20px 40px;
-    }
-    .movie-card {
-      background: #1c1c1c; border-radius: 8px; overflow: hidden;
-      transition: transform 0.3s;
-    }
-    .movie-card:hover {
-      transform: scale(1.05);
-    }
-    .movie-card img {
-      width: 100%; display: block;
-    }
-    .movie-card p {
-      text-align: center; padding: 8px; font-size: 14px; margin: 0;
-    }
-    .category-menu {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      justify-content: center; margin: 20px;
-    }
-    .category-btn {
-      background: #333; color: #fff; border: none;
-      padding: 10px 20px; border-radius: 20px;
-      font-weight: bold; cursor: pointer;
-      transition: background 0.3s;
-    }
-    .category-btn:hover {
-      background: #00c853;
-    }
-
-    @media (max-width: 600px) {
-      .movie-card p {
-        font-size: 12px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="assets/main.js"></script>
 </head>
 <body>
-
-  <header>
-    <div class="logo">PKT Flix</div>
-    <div class="clock" id="clock"></div>
+  <header class="header">
+    <div class="logo">🎬 <span class="animated-logo">PKT Flix</span></div>
+    <div class="datetime" id="datetime"></div>
   </header>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search movies or series..." />
-  </div>
+  <section class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search movies..." />
+  </section>
 
-  <div class="category-menu" id="categoryMenu">
-    <button class="category-btn" data-category="all">All</button>
-    <button class="category-btn" data-category="action">Action</button>
-    <button class="category-btn" data-category="comedy">Comedy</button>
-    <button class="category-btn" data-category="drama">Drama</button>
-    <button class="category-btn" data-category="series">Web Series</button>
-  </div>
+  <section class="categories">
+    <button class="category" data-category="All">All</button>
+    <button class="category" data-category="Action">Action</button>
+    <button class="category" data-category="Drama">Drama</button>
+    <button class="category" data-category="Comedy">Comedy</button>
+    <!-- Add more as needed -->
+  </section>
 
-  <div class="section-title">Popular Movies</div>
-  <div class="movie-grid" id="popularContainer"></div>
+  <section class="section-title">🎥 Popular Movies</section>
+  <div class="movie-grid" id="popularMovies"></div>
 
-  <div class="section-title">Recently Added</div>
-  <div class="movie-grid" id="recentContainer"></div>
+  <section class="section-title">🆕 Recently Added</section>
+  <div class="movie-grid" id="recentMovies"></div>
 
-  <div class="section-title">Web Series</div>
-  <div class="movie-grid" id="seriesContainer"></div>
+  <section class="section-title">📺 Web Series</section>
+  <div class="movie-grid" id="webSeries"></div>
 
-  <script>
-    function updateClock() {
-      const now = new Date();
-      const formatted = now.toLocaleString('en-GB', {
-        weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric',
-        hour: '2-digit', minute: '2-digit', second: '2-digit'
-      });
-      document.getElementById('clock').textContent = formatted;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    let allMovies = [];
-
-    async function fetchMovies() {
-      const res = await fetch('assets/movies.json');
-      allMovies = await res.json();
-      renderSections();
-    }
-
-    function renderSections() {
-      const popular = allMovies.slice(0, 8);
-      const recent = [...allMovies].reverse().slice(0, 8);
-      const series = allMovies.filter(m => m.category === 'series').slice(0, 8);
-
-      renderToContainer('popularContainer', popular);
-      renderToContainer('recentContainer', recent);
-      renderToContainer('seriesContainer', series);
-    }
-
-    function renderToContainer(containerId, movies) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = '';
-      movies.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'movie-card';
-        card.innerHTML = `
-          <a href="watch.html?id=${movie.id}">
-            <img src="${movie.poster}" alt="${movie.title}" />
-            <p>${movie.title}</p>
-          </a>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      const value = e.target.value.toLowerCase();
-      const filtered = allMovies.filter(m =>
-        m.title.toLowerCase().includes(value)
-      );
-      renderToContainer('popularContainer', filtered);
-    });
-
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const category = btn.dataset.category;
-        const filtered = category === 'all'
-          ? allMovies
-          : allMovies.filter(m => m.category === category);
-        renderToContainer('popularContainer', filtered);
-      });
-    });
-
-    fetchMovies();
-  </script>
+  <footer class="footer">
+    <p>&copy; 2025 PKT Flix</p>
+  </footer>
 </body>
 </html>
