@@ -20,10 +20,10 @@
   {
     "id": "movie-002",
     "title": "Avengers: Endgame",
-    "poster": "http://example.com/poster3.jpg",
-    "video": "http://example.com/endgame.mp4",
+    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhCfyXtme4Ax2PDzcSvzpKNJYL7OSc9uSynSePoUHr_7TKBLsf3mrX5mM&s=10",
+    "video": "https://pixeldra.in/api/file/pbY41f5x?download",
     "review": "Marvel’s epic conclusion to the Avengers saga.",
-    "category": "English",
+    "category": "Hindi",
     "type": "movie"
   }
 ]
