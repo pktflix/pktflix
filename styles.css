@@ -61,3 +61,53 @@ button {
   background-color: #444;
   color: white;
 }
+.movie-title {
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.poster-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.poster-img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.video-player {
+  border: 2px solid #444;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.view-count {
+  margin-top: 8px;
+  color: #ccc;
+  font-style: italic;
+}
+
+.review-box {
+  background: #222;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 10px;
+}
+
+.animated-btn {
+  display: inline-block;
+  background: linear-gradient(45deg, #ff4e50, #f9d423);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+  text-decoration: none;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,78,80, 0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 10px 10px rgba(255,78,80, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,78,80, 0); }
+}
