@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Action Movie 1",
+    "category": "Action",
+    "poster": "assets/posters/movie1.jpg",
+    "video": "downloads/movie1.mp4"
+  },
+  {
+    "title": "Romantic Movie 1",
+    "category": "Romantic",
+    "poster": "assets/posters/movie2.jpg",
+    "video": "downloads/movie2.mp4"
+  }
+]
