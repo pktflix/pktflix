@@ -1,41 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PKT Flix - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PKT Flix</title>
   <link rel="stylesheet" href="css/style.css" />
-  <script defer src="assets/main.js"></script>
 </head>
 <body>
   <header class="header">
-    <div class="logo">🎬 <span class="animated-logo">PKT Flix</span></div>
+    <div class="logo">PKT <span>Flix</span></div>
     <div class="datetime" id="datetime"></div>
-  </header>
-
-  <section class="search-bar">
+  </header>  <section class="search-section">
     <input type="text" id="searchInput" placeholder="Search movies..." />
-  </section>
+  </section>  <section class="categories">
+    <button class="category-button" data-category="Popular">Popular</button>
+    <button class="category-button" data-category="Recent">Recent</button>
+    <button class="category-button" data-category="Web Series">Web Series</button>
+    <button class="category-button" data-category="Action">Action</button>
+    <button class="category-button" data-category="Drama">Drama</button>
+    <button class="category-button" data-category="Comedy">Comedy</button>
+  </section>  <section class="movie-section" id="movieList">
+    <!-- Movies will be dynamically loaded here -->
+  </section>  <script>
+    // Show datetime
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("datetime").textContent = now.toLocaleString();
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
 
-  <section class="categories">
-    <button class="category" data-category="All">All</button>
-    <button class="category" data-category="Action">Action</button>
-    <button class="category" data-category="Drama">Drama</button>
-    <button class="category" data-category="Comedy">Comedy</button>
-    <!-- Add more as needed -->
-  </section>
+    // Load movies
+    async function loadMovies() {
+      const res = await fetch("assets/movies.json");
+      const movies = await res.json();
+      renderMovies(movies);
 
-  <section class="section-title">🎥 Popular Movies</section>
-  <div class="movie-grid" id="popularMovies"></div>
+      document.getElementById("searchInput").addEventListener("input", function () {
+        const keyword = this.value.toLowerCase();
+        const filtered = movies.filter((m) => m.name.toLowerCase().includes(keyword));
+        renderMovies(filtered);
+      });
 
-  <section class="section-title">🆕 Recently Added</section>
-  <div class="movie-grid" id="recentMovies"></div>
+      document.querySelectorAll(".category-button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const category = btn.dataset.category;
+          const filtered = movies.filter((m) => m.category === category);
+          renderMovies(filtered);
+        });
+      });
+    }
 
-  <section class="section-title">📺 Web Series</section>
-  <div class="movie-grid" id="webSeries"></div>
+    function renderMovies(movies) {
+      const container = document.getElementById("movieList");
+      container.innerHTML = "";
+      movies.forEach((movie) => {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.innerHTML = `
+          <a href="watch.html?id=${movie.id}">
+            <img src="${movie.poster}" alt="${movie.name}" />
+            <h3>${movie.name}</h3>
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-  <footer class="footer">
-    <p>&copy; 2025 PKT Flix</p>
-  </footer>
-</body>
+    loadMovies();
+  </script></body>
 </html>
