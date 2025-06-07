@@ -1,23 +1,42 @@
-/* movies.json */
 [
   {
     "id": 1,
     "title": "পাঠান",
     "poster": "assets/posters/pathaan.jpg",
-    "video": "https://example.com/pathaan.mp4",
+    "video": "https://example.com/videos/pathaan.mp4",
     "category": "Hindi",
     "views": 12000,
     "review": "একটি হাই-অ্যাকশন থ্রিলার।",
-    "tags": ["Hindi", "Action"]
+    "tags": ["অ্যাকশন", "থ্রিলার"]
   },
   {
     "id": 2,
     "title": "মিশন এক্সট্রিম",
     "poster": "assets/posters/mission.jpg",
-    "video": "https://example.com/mission.mp4",
+    "video": "https://example.com/videos/mission.mp4",
     "category": "Bangla",
     "views": 8000,
     "review": "দেশপ্রেমে ভরপুর একশন মুভি।",
-    "tags": ["Bangla", "All"]
+    "tags": ["অ্যাকশন", "ড্রামা"]
+  },
+  {
+    "id": 3,
+    "title": "KGF Chapter 2",
+    "poster": "assets/posters/kgf2.jpg",
+    "video": "https://example.com/videos/kgf2.mp4",
+    "category": "Hindi",
+    "views": 15000,
+    "review": "মোস্ট ওয়েটেড অ্যাকশন ব্লকবাস্টার।",
+    "tags": ["অ্যাকশন", "গ্যাংস্টার"]
+  },
+  {
+    "id": 4,
+    "title": "Avengers: Endgame",
+    "poster": "assets/posters/endgame.jpg",
+    "video": "https://example.com/videos/endgame.mp4",
+    "category": "English",
+    "views": 30000,
+    "review": "মার্ভেল ইউনিভার্সের মহাকাব্যিক সমাপ্তি।",
+    "tags": ["অ্যাকশন", "সাই-ফাই", "সুপারহিরো"]
   }
 ]
