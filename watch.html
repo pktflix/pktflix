@@ -25,6 +25,10 @@
       font-size: 28px;
       animation: flicker 2s infinite;
     }
+    .left a {
+      text-decoration: none;
+      color: inherit;
+    }
     @keyframes flicker {
       0%, 100% { text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff; }
       50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
@@ -122,30 +126,50 @@
 </head>
 <body>
   <header>
-    <div class="left">PKT Flix</div>
+    <div class="left"><a href="index.html">PKT Flix</a></div>
     <div class="right" id="clock"></div>
   </header>  <div class="watch-container">
-    <h1 class="movie-title">Movie Title</h1><video class="video-player" controls>
-  <source src="https://example.com/video.mp4" type="video/mp4">
-</video>
-
-<img src="assets/posters/sample.jpg" alt="Movie Poster" class="poster">
-
-<div class="info-box">
-  <p><strong>Views:</strong> 12,000</p>
-  <p><strong>Review:</strong> দারুণ থ্রিলার!</p>
+    <h1 class="movie-title" id="movie-title">লোড হচ্ছে...</h1>
+    <video class="video-player" id="movie-video" controls></video>
+    <img src="" alt="Movie Poster" class="poster" id="movie-poster"><div class="info-box">
+  <p><strong>Views:</strong> <span id="views">0</span></p>
+  <p><strong>Review:</strong> <span id="review"></span></p>
 </div>
 
-<a href="download.html?id=1" class="download-btn">⬇️ এখনই ডাউনলোড করুন</a>
+<a href="#" class="download-btn" id="download-btn">⬇️ এখনই ডাউনলোড করুন</a>
 
 <h2 class="related-title">Related Movies</h2>
-<div class="related-movies">
-  <img src="assets/posters/mission.jpg" alt="Mission Extreme">
-  <img src="assets/posters/kgf2.jpg" alt="KGF 2">
-  <img src="assets/posters/endgame.jpg" alt="Endgame">
-</div>
+<div class="related-movies" id="related"></div>
 
   </div>  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'));
+
+    fetch('assets/movies.json')
+      .then(res => res.json())
+      .then(data => {
+        const movie = data.find(m => m.id === id);
+        if (!movie) return;
+
+        document.getElementById('movie-title').textContent = movie.title;
+        document.getElementById('movie-video').innerHTML = `<source src="${movie.video}" type="video/mp4">`;
+        document.getElementById('movie-poster').src = movie.poster;
+        document.getElementById('movie-poster').alt = movie.title;
+        document.getElementById('views').textContent = movie.views;
+        document.getElementById('review').textContent = movie.review;
+        document.getElementById('download-btn').href = `download.html?id=${movie.id}`;
+
+        const related = data.filter(m => m.category === movie.category && m.id !== movie.id);
+        const relatedContainer = document.getElementById('related');
+        related.forEach(m => {
+          const img = document.createElement('img');
+          img.src = m.poster;
+          img.alt = m.title;
+          img.onclick = () => window.location.href = `watch.html?id=${m.id}`;
+          relatedContainer.appendChild(img);
+        });
+      });
+
     function updateClock() {
       const now = new Date();
       document.getElementById('clock').textContent = now.toLocaleTimeString();
