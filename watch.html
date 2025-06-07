@@ -1,180 +1,157 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Watch - PKT Flix</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
   <style>
     body {
       margin: 0;
-      background: #0d0d0d;
       font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
       color: #fff;
     }
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 15px;
-      background-color: #111;
-      font-size: 20px;
+      padding: 15px 20px;
+      background: linear-gradient(90deg, #111, #222);
+      font-size: 1.5em;
       font-weight: bold;
     }
-    .left {
-      color: #00ffff;
-      font-size: 28px;
-      animation: flicker 2s infinite;
+    .logo {
+      font-size: 2em;
+      background: linear-gradient(90deg, #f0f, #0ff, #f0f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 3s linear infinite;
     }
-    .left a {
-      text-decoration: none;
-      color: inherit;
+    @keyframes glow {
+      0% { filter: brightness(100%); }
+      50% { filter: brightness(150%); }
+      100% { filter: brightness(100%); }
     }
-    @keyframes flicker {
-      0%, 100% { text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff; }
-      50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
-    }
-    .watch-container {
-      padding: 15px;
-      max-width: 960px;
-      margin: auto;
-    }
-    .movie-title {
-      font-size: 24px;
-      text-align: center;
-      margin: 10px 0;
-      color: #00ffff;
-      text-shadow: 1px 1px 3px #000;
-    }
-    .video-player {
-      width: 100%;
-      max-height: 60vh;
-      border-radius: 12px;
-      margin: 15px 0;
+    .container {
+      padding: 20px;
     }
     .poster {
       width: 100%;
-      max-width: 320px;
-      display: block;
-      margin: 0 auto 20px;
-      border-radius: 10px;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
     }
-    .info-box {
-      margin: 20px 0;
+    .video-player {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .review-box {
+      background-color: #1e1e1e;
       padding: 15px;
-      background: #1a1a1a;
       border-radius: 8px;
+      margin-bottom: 20px;
     }
     .download-btn {
-      display: block;
-      text-align: center;
-      padding: 16px 30px;
-      background: linear-gradient(45deg, #00ffff, #0066ff, #00ffff);
-      background-size: 300% 300%;
-      color: #000;
-      font-size: 20px;
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #ff0066, #ff6600);
+      color: #fff;
+      font-size: 1.2em;
       font-weight: bold;
       text-decoration: none;
       border-radius: 50px;
-      box-shadow: 0 0 20px #00ffffaa;
-      animation: gradientMove 6s ease infinite, pulseGlow 2s ease-in-out infinite;
-      margin: 25px auto;
-      width: max-content;
+      box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
+      animation: pulse 2s infinite;
+      margin-bottom: 30px;
     }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 102, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 102, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 102, 0.5); }
     }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 20px #00ffffaa; }
-      50% { box-shadow: 0 0 30px #00ffffee, 0 0 40px #00ffff88; }
+    .related {
+      margin-top: 50px;
     }
-    .related-title {
-      font-size: 20px;
-      text-align: center;
-      margin: 60px 0 10px;
-      text-decoration: underline;
+    .related h2 {
+      margin-bottom: 15px;
     }
     .related-movies {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 15px;
-      padding-bottom: 30px;
     }
     .related-movies img {
       width: 100%;
       border-radius: 8px;
     }
-    @media (max-width: 768px) {
-      header {
-        font-size: 18px;
-        flex-direction: column;
-        text-align: center;
-      }
-      .left {
-        font-size: 24px;
-      }
-      .movie-title {
-        font-size: 20px;
-      }
-      .download-btn {
-        font-size: 18px;
-        width: 90%;
-      }
+
+    @media (max-width: 600px) {
+      header { font-size: 1.2em; }
+      .logo { font-size: 1.5em; }
+      .download-btn { font-size: 1em; padding: 10px 20px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="left"><a href="index.html">PKT Flix</a></div>
-    <div class="right" id="clock"></div>
-  </header>  <div class="watch-container">
-    <h1 class="movie-title" id="movie-title">লোড হচ্ছে...</h1>
-    <video class="video-player" id="movie-video" controls></video>
-    <img src="" alt="Movie Poster" class="poster" id="movie-poster"><div class="info-box">
-  <p><strong>Views:</strong> <span id="views">0</span></p>
-  <p><strong>Review:</strong> <span id="review"></span></p>
-</div>
+    <div class="logo"><a href="index.html" style="text-decoration:none;">PKT Flix</a></div>
+    <div id="clock"></div>
+  </header>
 
-<a href="#" class="download-btn" id="download-btn">⬇️ এখনই ডাউনলোড করুন</a>
+  <div class="container">
+    <img id="poster" class="poster" src="" alt="Movie Poster" />
+    <video id="player" class="video-player" controls></video>
+    <div id="view-count"></div>
+    <div id="review" class="review-box"></div>
+    <a id="downloadBtn" class="download-btn" href="#">Download Now</a>
 
-<h2 class="related-title">Related Movies</h2>
-<div class="related-movies" id="related"></div>
+    <div class="related">
+      <h2>Related Movies</h2>
+      <div id="related" class="related-movies"></div>
+    </div>
+  </div>
 
-  </div>  <script>
+  <script>
     const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get('id'));
+    const movieId = parseInt(params.get("id"));
 
     fetch('assets/movies.json')
       .then(res => res.json())
-      .then(data => {
-        const movie = data.find(m => m.id === id);
+      .then(movies => {
+        const movie = movies.find(m => m.id === movieId);
         if (!movie) return;
 
-        document.getElementById('movie-title').textContent = movie.title;
-        document.getElementById('movie-video').innerHTML = `<source src="${movie.video}" type="video/mp4">`;
-        document.getElementById('movie-poster').src = movie.poster;
-        document.getElementById('movie-poster').alt = movie.title;
-        document.getElementById('views').textContent = movie.views;
+        document.getElementById('poster').src = movie.poster;
+        document.getElementById('player').src = movie.video;
+        document.getElementById('view-count').textContent = `Views: ${movie.views}`;
         document.getElementById('review').textContent = movie.review;
-        document.getElementById('download-btn').href = `download.html?id=${movie.id}`;
+        document.getElementById('downloadBtn').href = `download.html?id=${movie.id}`;
 
-        const related = data.filter(m => m.category === movie.category && m.id !== movie.id);
         const relatedContainer = document.getElementById('related');
+        const related = movies.filter(m => m.category === movie.category && m.id !== movie.id);
         related.forEach(m => {
+          const a = document.createElement('a');
+          a.href = `watch.html?id=${m.id}`;
           const img = document.createElement('img');
           img.src = m.poster;
           img.alt = m.title;
-          img.onclick = () => window.location.href = `watch.html?id=${m.id}`;
-          relatedContainer.appendChild(img);
+          a.appendChild(img);
+          relatedContainer.appendChild(a);
         });
       });
 
+    // Clock
     function updateClock() {
       const now = new Date();
       document.getElementById('clock').textContent = now.toLocaleTimeString();
     }
     setInterval(updateClock, 1000);
     updateClock();
-  </script></body>
+  </script>
+</body>
 </html>
