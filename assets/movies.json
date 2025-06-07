@@ -1,25 +1,23 @@
+/* movies.json */
 [
   {
     "id": 1,
-    "name": "Example Movie 1",
-    "poster": "http://example.com/poster.jpg",
-    "video": "http://live.geoiptv.org:8880/movie/rodney/rodney12345/915909.mp4",
-    "review": "A good movie."
+    "title": "পাঠান",
+    "poster": "assets/posters/pathaan.jpg",
+    "video": "https://example.com/pathaan.mp4",
+    "category": "Hindi",
+    "views": 12000,
+    "review": "একটি হাই-অ্যাকশন থ্রিলার।",
+    "tags": ["Hindi", "Action"]
   },
-  
   {
     "id": 2,
-    "name": "Example Movie ",
-    "poster": "http://example.com/poster.jpg",
-    "video": "https://short.icu/Cod6-_dhF",
-    "review": "A good movie."
-  },
-  
-  {
-    "id": 3,
-    "name": "Example Mov",
-    "poster": "http://example.com/poster.jpg",
-    "video": "https://filemoon.to/e/7bz3pce4whv4",
-    "review": "A good movie."
-  },
+    "title": "মিশন এক্সট্রিম",
+    "poster": "assets/posters/mission.jpg",
+    "video": "https://example.com/mission.mp4",
+    "category": "Bangla",
+    "views": 8000,
+    "review": "দেশপ্রেমে ভরপুর একশন মুভি।",
+    "tags": ["Bangla", "All"]
+  }
 ]
