@@ -1,1 +1,32 @@
-
+[
+  {
+    "name": "Channel One",
+    "category": "Sports",
+    "logo": "https://via.placeholder.com/150?text=Channel+One",
+    "url": "http://example.com/stream1.m3u8"
+  },
+  {
+    "name": "Channel Two",
+    "category": "Sports",
+    "logo": "https://via.placeholder.com/150?text=Channel+Two",
+    "url": "http://example.com/stream2.m3u8"
+  },
+  {
+    "name": "Channel Three",
+    "category": "News",
+    "logo": "https://via.placeholder.com/150?text=Channel+Three",
+    "url": "http://example.com/stream3.m3u8"
+  },
+  {
+    "name": "Channel Four",
+    "category": "News",
+    "logo": "https://via.placeholder.com/150?text=Channel+Four",
+    "url": "http://example.com/stream4.m3u8"
+  },
+  {
+    "name": "Channel Five",
+    "category": "Music",
+    "logo": "https://via.placeholder.com/150?text=Channel+Five",
+    "url": "http://example.com/stream5.m3u8"
+  }
+]
