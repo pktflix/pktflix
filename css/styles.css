@@ -1,78 +1,71 @@
+/* css/style.css */
 body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #121212;
+  color: #fff;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #0e0e0e;
-  color: white;
+  padding: 0;
 }
-.header {
+
+header {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
-  background: #1a1a1a;
-  align-items: center;
+  background-color: #1f1f1f;
+  font-size: 1.2em;
 }
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-.animated-logo {
-  animation: flicker 1.5s infinite alternate;
-}
-@keyframes flicker {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; color: #ff2e63; }
-}
-.datetime {
-  font-size: 14px;
-}
-.search-bar {
-  padding: 10px 20px;
-}
-.search-bar input {
-  width: 100%;
+
+#search {
+  width: 90%;
+  margin: 10px auto;
+  display: block;
   padding: 8px;
-  font-size: 16px;
-}
-.categories {
-  padding: 10px 20px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.category {
-  background: #444;
+  border-radius: 6px;
   border: none;
-  padding: 8px 12px;
-  cursor: pointer;
+  font-size: 1em;
+}
+
+#categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px;
+}
+
+#categories button {
+  padding: 6px 12px;
+  background-color: #2e2e2e;
   color: white;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-.category:hover {
-  background: #ff2e63;
-}
-.section-title {
-  margin: 20px 20px 10px;
-  font-size: 20px;
-  border-bottom: 2px solid #ff2e63;
-}
-.movie-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
-  padding: 0 20px 20px;
-}
-.movie-grid img {
-  width: 100%;
-  border-radius: 10px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
-.movie-grid img:hover {
-  transform: scale(1.05);
+
+#categories button:hover {
+  background-color: #3f3f3f;
 }
-.footer {
-  text-align: center;
+
+#movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
   padding: 20px;
-  background: #111;
+}
+
+#movie-list .movie {
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+
+#movie-list img {
+  width: 100%;
+  height: auto;
+}
+
+#movie-list h3 {
+  margin: 10px 0;
+  font-size: 1em;
 }
