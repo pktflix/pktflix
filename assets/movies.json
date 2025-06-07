@@ -32,7 +32,7 @@
   {
     "id": 4,
     "title": "Avengers: Endgame",
-    "poster": "assets/posters/endgame.jpg",
+    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5NbLB4AGbsVM5mIAmPprre-99FFmaWW_fuqpBA2C7hP2HIzmpnxE_eLE&s=10",
     "video": "https://example.com/videos/endgame.mp4",
     "category": "English",
     "views": 30000,
