@@ -96,7 +96,58 @@ header {
   font-size: 16px;
   text-align: center;
 }
+/* PKT Flix টাইটেল এনিমেশন */
+.left {
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #00ffff, #ffffff, #00ffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lighting 2.5s linear infinite;
+}
 
+@keyframes lighting {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* মুভির নাম বড় এবং স্পষ্ট */
+.movie h3 {
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  color: #00ffff;
+  text-shadow: 1px 1px 2px #000;
+  font-weight: 600;
+}
+
+/* Movie box animation */
+.movie {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInUp 0.6s ease both;
+}
+
+.movie:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 20px #00ffff55;
+}
+
+/* Fade-in animation for movie cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 @media (max-width: 768px) {
   .left {
     font-size: 20px;
