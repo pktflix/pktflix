@@ -1,8 +1,7 @@
-/* css/style.css */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: sans-serif;
   background-color: #121212;
-  color: #fff;
+  color: #ffffff;
   margin: 0;
   padding: 0;
 }
@@ -12,60 +11,110 @@ header {
   justify-content: space-between;
   padding: 10px 20px;
   background-color: #1f1f1f;
-  font-size: 1.2em;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.left {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00d4ff;
+}
+
+.right {
+  font-size: 14px;
+  color: #ddd;
 }
 
 #search {
   width: 90%;
   margin: 10px auto;
   display: block;
-  padding: 8px;
-  border-radius: 6px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
   border: none;
-  font-size: 1em;
+  outline: none;
+  background-color: #2c2c2c;
+  color: #fff;
 }
 
 #categories {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px auto;
+  padding: 0 10px;
 }
 
 #categories button {
-  padding: 6px 12px;
-  background-color: #2e2e2e;
-  color: white;
+  padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  background: #333;
+  color: #fff;
+  border-radius: 20px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 #categories button:hover {
-  background-color: #3f3f3f;
+  background: #00d4ff;
+  color: #000;
 }
 
 #movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 15px;
   padding: 20px;
 }
 
-#movie-list .movie {
-  background-color: #1c1c1c;
-  border-radius: 8px;
+.movie {
+  background: #1e1e1e;
+  border-radius: 12px;
   overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.movie:hover {
+  transform: scale(1.03);
+}
+
+.movie img {
+  width: 100%;
+  display: block;
+  height: auto;
+  border-bottom: 1px solid #333;
+}
+
+.movie h3 {
+  padding: 10px;
+  font-size: 16px;
   text-align: center;
 }
 
-#movie-list img {
-  width: 100%;
-  height: auto;
-}
+/* 🔻 মোবাইল স্ক্রিনের জন্য বিশেষভাবে ছোট ফন্ট ও গ্যাপ অ্যাডজাস্ট */
+@media (max-width: 768px) {
+  .left {
+    font-size: 20px;
+  }
 
-#movie-list h3 {
-  margin: 10px 0;
-  font-size: 1em;
+  .right {
+    font-size: 12px;
+  }
+
+  #search {
+    font-size: 14px;
+  }
+
+  #categories button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .movie h3 {
+    font-size: 14px;
+  }
 }
