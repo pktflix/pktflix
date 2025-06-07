@@ -1,19 +1,40 @@
-<!-- download.html -->
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download - PKT Flix</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <div class="download-box">
-    <h1>ডাউনলোড প্রস্তুত হচ্ছে...</h1>
-    <p id="timer">১০</p>
-    <div class="ad-box">এখানে আপনার বিজ্ঞাপন আসবে</div>
-    <a id="real-download-link" href="#" style="display:none">এখন ডাউনলোড করুন</a>
-  </div>
-  <script src="js/download.js"></script>
-</body>
-</html>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Download | PKT Flix</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .download-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      animation: pulseText 1.2s infinite;
+    }
+
+    #timer {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #00ffcc;
+    }
+
+    #real-download-link {
+      display: none;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #00c9ff, #92fe9d);
+      color: #000;
+      font-weight: bold;
+      border-radius: 12px;
+      font-size: 20px;
+      text-decoration: none;
+      margin-top: 30px;
+      transition: transform
