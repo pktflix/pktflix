@@ -11,6 +11,26 @@ fetch('assets/movies.json')
     displayMovies(movies);
   });
 
+// js/script.js বা index.html এর শেষে
+function updateClock() {
+  const clockEl = document.getElementById('clock');
+  if (clockEl) {
+    const now = new Date();
+    const options = {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+    clockEl.textContent = now.toLocaleDateString('bn-BD', options);
+  }
+}
+setInterval(updateClock, 1000);
+updateClock();
+
 function displayMovies(list) {
   movieList.innerHTML = '';
   list.forEach(movie => {
