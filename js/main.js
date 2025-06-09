@@ -1,4 +1,4 @@
-fetch('banners.json')
+fetch('tv.json')
   .then(res => res.json())
   .then(banners => {
     const bannerSlider = document.getElementById('bannerSlider');
