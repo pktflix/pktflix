@@ -1,20 +1,227 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Watch - PKT Flix</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watch | PKT Flix</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: white;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: white;
+      font-size: 18px;
+    }
+    .top-bar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      animation: neon 1.5s infinite alternate;
+    }
+    @keyframes neon {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff00cc; }
+      to { text-shadow: 0 0 20px #00f, 0 0 30px #ff0; }
+    }
+    #videoPlayer {
+      width: 100%;
+      max-height: 60vh;
+      background: #000;
+    }
+    .poster-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .poster-section img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+    }
+    .poster-section h2 {
+      margin-top: 10px;
+      font-size: 24px;
+      color: #ffcc00;
+    }
+    .view-count {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #ccc;
+    }
+    .review {
+      margin: 20px auto;
+      max-width: 90%;
+      padding: 15px;
+      background: #222;
+      border-radius: 10px;
+      animation: slideFade 1s ease;
+    }
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .download-btn {
+      display: block;
+      margin: 30px auto;
+      padding: 15px 30px;
+      font-size: 20px;
+      background: linear-gradient(45deg, orange, yellow);
+      border: none;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px orange; }
+      50% { box-shadow: 0 0 20px yellow; }
+      100% { box-shadow: 0 0 5px orange; }
+    }
+
+    .related-section {
+      margin: 40px 20px;
+    }
+
+    .related-section h3 {
+      margin-bottom: 10px;
+      color: #ffcc00;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .related-grid img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .related-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .ad-box {
+      margin: 20px auto;
+      max-width: 90%;
+      background: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      color: #999;
+      border-radius: 10px;
+      border: 1px dashed #444;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="logo">PKT Flix</div>
-    <div id="clock" class="clock"></div>
-  </header>
 
-  <div class="video-container" id="player"></div>
-  <div class="review"></div>
-  <a class="btn download" href="#">Download</a>
+  <div class="top-bar">
+    <div class="logo" onclick="location.href='index.html'">PKT Flix</div>
+    <div id="clock"></div>
+  </div>
 
-  <script type="module" src="js/video.js"></script>
+  <video id="videoPlayer" controls autoplay></video>
+
+  <!-- Ad under video -->
+  <div class="ad-box">[Ad Placeholder Below Video]</div>
+
+  <div class="view-count" id="viewCount">Loading views...</div>
+
+  <div class="poster-section">
+    <img id="poster" src="" alt="Movie Poster"/>
+    <h2 id="movieTitle"></h2>
+  </div>
+
+  <div class="review" id="description">Loading description...</div>
+
+  <!-- Ad under review -->
+  <div class="ad-box">[Ad Placeholder Below Review]</div>
+
+  <button class="download-btn" onclick="location.href='download.html?id='+movieId">Download Now</button>
+
+  <div class="related-section">
+    <h3>Related Movies</h3>
+
+    <!-- Ad before related movies -->
+    <div class="ad-box">[Ad Placeholder Above Related Movies]</div>
+
+    <div class="related-grid" id="relatedMovies"></div>
+  </div>
+
+  <script>
+    const videoPlayer = document.getElementById('videoPlayer');
+    const movieId = new URLSearchParams(window.location.search).get('id');
+
+    fetch('videos.json')
+      .then(res => res.json())
+      .then(data => {
+        const movie = data.find(item => item.id === movieId);
+        if (!movie) return alert('Movie not found');
+        
+        document.getElementById('poster').src = movie.thumbnail;
+        document.getElementById('movieTitle').innerText = movie.title;
+        document.getElementById('description').innerText = movie.description;
+
+        if (Hls.isSupported() && movie.video.endsWith('.m3u8')) {
+          const hls = new Hls();
+          hls.loadSource(movie.video);
+          hls.attachMedia(videoPlayer);
+        } else {
+          videoPlayer.src = movie.video;
+        }
+
+        fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`, {
+          method: 'PATCH',
+          body: JSON.stringify({ viewed: Date.now() }),
+        });
+
+        fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`)
+          .then(res => res.json())
+          .then(data => {
+            const count = data ? Object.keys(data).length : 1;
+            document.getElementById('viewCount').innerText = `👁️ ${count} views`;
+          });
+
+        const related = data.filter(item => item.type === movie.type && item.id !== movieId).slice(0, 6);
+        document.getElementById('relatedMovies').innerHTML = related.map(rel => `
+          <a href="watch.html?id=${rel.id}">
+            <img src="${rel.thumbnail}" alt="${rel.title}">
+          </a>
+        `).join('');
+      });
+
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+      document.getElementById('clock').innerText = `${hours}:${minutes} ${ampm} | ${date}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Anti-theft script
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => {
+      if (e.keyCode === 123 || (e.ctrlKey && ['u', 'U', 's', 'S'].includes(e.key)) || (e.ctrlKey && e.shiftKey && ['I', 'i', 'C', 'c', 'J', 'j'].includes(e.key))) {
+        e.preventDefault();
+        return false;
+      }
+    };
+  </script>
+
 </body>
 </html>
