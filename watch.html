@@ -22,15 +22,19 @@
     }
 
     .logo {
-      font-size: 22px;
-      color: #00f0ff;
+      font-size: 26px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #00f0ff, #ff00ff, #00ff00);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
       text-decoration: none;
       animation: glow 1.5s infinite alternate;
     }
 
     @keyframes glow {
       from { text-shadow: 0 0 5px #00f0ff; }
-      to { text-shadow: 0 0 20px #00f0ff; }
+      to { text-shadow: 0 0 25px #ff00ff; }
     }
 
     #clock {
@@ -45,10 +49,10 @@
       margin-top: 10px;
     }
 
-    .video-container video {
+    video {
       width: 100%;
       height: 100%;
-      border: none;
+      background-color: #000;
     }
 
     .poster {
@@ -78,23 +82,32 @@
     }
 
     .download-btn {
-      margin-top: 30px;
-      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      margin-top: 40px;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
       color: white;
-      padding: 15px 35px;
+      padding: 15px 40px;
       font-size: 22px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      animation: pulse 1.5s infinite;
-      display: inline-block;
+      animation: pulse 2s infinite, glowBorder 4s linear infinite;
       text-decoration: none;
+      position: relative;
+      display: inline-block;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
+    }
+
+    @keyframes glowBorder {
+      0% { box-shadow: 0 0 10px #ff416c; }
+      25% { box-shadow: 0 0 15px #ff4b2b; }
+      50% { box-shadow: 0 0 20px #00f0ff; }
+      75% { box-shadow: 0 0 15px #00ffcc; }
+      100% { box-shadow: 0 0 10px #ff416c; }
     }
 
     @media (max-width: 600px) {
@@ -108,6 +121,9 @@
         font-size: 18px;
         padding: 12px 25px;
       }
+      .logo {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -119,8 +135,8 @@
   </header>
 
   <div class="video-container">
-    <video id="videoPlayer" controls poster="">
-      <source id="videoSource" src="" type="application/x-mpegURL">
+    <video id="videoPlayer" controls>
+      <source id="videoSource" src="" type="">
       Your browser does not support the video tag.
     </video>
   </div>
@@ -136,10 +152,7 @@
     function updateClock() {
       const now = new Date();
       const time = now.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        hour12: true
+        hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true
       });
       const date = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()}`;
       document.getElementById('clock').textContent = `${time} | ${date}`;
@@ -147,11 +160,11 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Load data from JSON
+    // Load movie from JSON
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
 
-    fetch("videos.json")
+    fetch("assets/movies.json")
       .then(res => res.json())
       .then(data => {
         const movie = data.find(m => m.id === movieId);
@@ -161,6 +174,16 @@
         document.getElementById("poster").src = movie.thumbnail;
         document.getElementById("reviewBox").innerText = movie.description;
         document.getElementById("videoSource").src = movie.video;
+
+        // Detect video type
+        const ext = movie.video.split('.').pop().toLowerCase();
+        let type = "video/mp4";
+        if (ext === "m3u8") type = "application/x-mpegURL";
+        else if (ext === "webm") type = "video/webm";
+        else if (ext === "ogg" || ext === "ogv") type = "video/ogg";
+        else if (ext === "mkv") type = "video/mp4"; // MKV handled as MP4 fallback
+        document.getElementById("videoSource").type = type;
+
         document.getElementById("videoPlayer").load();
         document.getElementById("downloadBtn").href = `download.html?id=${movie.id}`;
       });
