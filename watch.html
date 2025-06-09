@@ -22,7 +22,7 @@
     }
 
     .logo {
-      font-size: 26px;
+      font-size: 30px;
       font-weight: bold;
       background: linear-gradient(45deg, #00f0ff, #ff00ff, #00ff00);
       background-clip: text;
@@ -86,7 +86,7 @@
       background: linear-gradient(90deg, #ff416c, #ff4b2b);
       color: white;
       padding: 15px 40px;
-      font-size: 22px;
+      font-size: 26px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
@@ -118,11 +118,11 @@
         font-size: 18px;
       }
       .download-btn {
-        font-size: 18px;
+        font-size: 20px;
         padding: 12px 25px;
       }
       .logo {
-        font-size: 20px;
+        font-size: 24px;
       }
     }
   </style>
@@ -164,11 +164,11 @@
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
 
-    fetch("assets/movies.json")
+    fetch("videos.json")
       .then(res => res.json())
       .then(data => {
         const movie = data.find(m => m.id === movieId);
-        if (!movie) return alert("Movie not found!");
+        if (!movie) return alert("মুভিটি প্লে হচ্ছে না। ডাওনলোড করে দেখতে পারেন");
 
         document.getElementById("movieTitle").innerText = movie.title;
         document.getElementById("poster").src = movie.thumbnail;
