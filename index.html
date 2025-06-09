@@ -1,29 +1,26 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PKT Flix - Home</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <title>PKT Flix</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
-    <div class="left">PKT Flix</div>
-    <div class="right" id="clock"></div>
+    <div class="logo">PKT Flix</div>
+    <div id="clock" class="clock"></div>
   </header>
-  <input type="text" id="search" placeholder="মুভি খুঁজুন...">
 
-  <div id="categories">
-    <button data-category="All">All</button>
-    <button data-category="Bangla">Bangla</button>
-    <button data-category="Hindi">Hindi</button>
-    <button data-category="English">English</button>
-    <button data-category="Action">Dual Audio</button>
-  </div>
+  <section id="slider" class="slider"></section>
 
-  <section id="movie-list"></section>
+  <main>
+    <h2>🎬 Movies</h2>
+    <div id="movies" class="gallery"></div>
 
-  <script src="js/script.js"></script>
+    <h2>📺 Series</h2>
+    <div id="series" class="gallery"></div>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
