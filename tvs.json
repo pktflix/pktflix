@@ -1,10 +1,10 @@
 [
   {
     "id": "pkt001",
-    "title": "PKT News Live",
-    "description": "Watch 24/7 live PKT news streaming directly from our platform.",
-    "video": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/5078083881bc489ea14f4c85e7abe4d6/index.m3u8",
-    "thumbnail": "https://via.placeholder.com/400x250.png?text=PKT+News+Live",
+    "title": "Star Sports",
+    "description": "Star Sports.",
+    "video": "https://starsportseng.pages.dev/index.m3u8",
+    "thumbnail": "https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp",
     "type": "tv"
   },
   {
