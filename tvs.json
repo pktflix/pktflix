@@ -3,8 +3,8 @@
     "id": "pkt001",
     "title": "Star Sports",
     "description": "Star Sports.",
-    "video": "https://starsportseng.pages.dev/index.m3u8",
-    "thumbnail": "https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp",
+    "video": "https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8",
+    "thumbnail": "https://i.postimg.cc/sfc07kCn/20250313-225549.png",
     "type": "tv"
   },
   {
