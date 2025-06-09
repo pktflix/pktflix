@@ -265,7 +265,46 @@ h2 { margin:20px 0 12px; font-size:20px; }
   font-size:28px; text-align:center;
   border-radius:8px;
 }
+.channel-banner-slider {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  background: #111;
+}
 
+.slider-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 20s linear infinite;
+  align-items: center;
+}
+
+.slider-track img {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 5px #00f7ff);
+}
+
+.slider-track img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px #0ff);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-track img {
+    height: 40px;
+  }
+}
 @media (max-width:600px) {
   .logo { font-size:18px; }
   .clock { font-size:12px; }
