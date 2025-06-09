@@ -2,182 +2,180 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Download | PKT Flix</title>
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Basic styles & security */
-    body, html {
-      margin: 0; padding: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background-color: #111;
+    body {
+      margin: 0;
+      background-color: #0f0f0f;
       color: white;
-      user-select: none;
-      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding-top: 80px;
     }
-    body:before {
-      content: '';
+
+    .topbar {
       position: fixed;
-      inset: 0;
-      z-index: 9999999;
-      pointer-events: none;
-    }
-    .top-bar {
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #1c1c1c;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      background: linear-gradient(to right, #ff00cc, #3333ff);
-      padding: 15px 25px;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 0 10px #000;
+      z-index: 1000;
+    }
+
+    .topbar h1 {
+      margin: 0;
       font-size: 20px;
       font-weight: bold;
-    }
-    .top-bar .logo {
-      cursor: pointer;
-      animation: neon 1.5s infinite alternate;
-    }
-    @keyframes neon {
-      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff00cc; }
-      to { text-shadow: 0 0 20px #00f, 0 0 30px #ff0; }
+      color: #00ffd5;
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
-    .container {
-      max-width: 500px;
-      margin: 40px auto 80px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 15px;
-      color: #ffcc00;
-    }
-    #timer {
-      font-size: 48px;
-      margin-bottom: 25px;
-      font-weight: bold;
-      color: #00ccff;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { text-shadow: 0 0 5px #00ccff; }
-      50% { text-shadow: 0 0 20px #ff0066; }
-    }
-
-    #downloadBtn {
-      display: none;
-      padding: 18px 40px;
-      font-size: 22px;
-      font-weight: bold;
-      border-radius: 40px;
-      border: none;
-      background: linear-gradient(45deg, #ff7e00, #ffd700);
-      color: #111;
-      cursor: pointer;
-      box-shadow: 0 0 20px #ffb100;
-      animation: glowBtn 2.5s infinite;
-      transition: transform 0.3s ease;
-    }
-    #downloadBtn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 40px #ffa500;
-    }
-    @keyframes glowBtn {
-      0%, 100% { box-shadow: 0 0 15px #ffa500; }
-      50% { box-shadow: 0 0 35px #ffd700; }
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffd5;
+      }
+      to {
+        text-shadow: 0 0 20px #00ffd5, 0 0 30px #00ffd5;
+      }
     }
 
     .ad-banner {
       margin: 20px auto;
-      max-width: 480px;
+      width: 90%;
+      max-width: 728px;
+      height: 90px;
+      background-color: #222;
+      border: 2px dashed #00ffd5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      border-radius: 10px;
-      box-shadow: 0 0 25px #ffb100aa;
+      transition: transform 0.3s ease;
     }
-    .ad-banner img {
-      width: 100%;
+
+    .ad-banner:hover {
+      transform: scale(1.03);
+    }
+
+    .download-box {
+      margin-top: 30px;
+    }
+
+    .timer {
+      font-size: 24px;
+      margin-bottom: 20px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .download-btn {
+      display: none;
+      background-color: #00ffd5;
+      color: #000;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
       border-radius: 10px;
-      display: block;
+      cursor: pointer;
+      animation: pop 0.5s ease forwards;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
     }
   </style>
 </head>
-<body oncontextmenu="return false" onkeydown="return false">
+<body>
 
-  <div class="top-bar">
-    <div class="logo" onclick="location.href='index.html'">PKT Flix</div>
-    <div id="clock"></div>
+  <div class="topbar">
+    <h1>PKT Flix</h1>
+    <div id="datetime"></div>
   </div>
 
-  <div class="container">
-    <h1>Download Link Ready...</h1>
-    <div id="timer">15</div>
+  <h2>🎉 Download Link Ready...</h2>
 
-    <div id="adTop" class="ad-banner"></div>
+  <div id="adTop" class="ad-banner">Loading Ad...</div>
 
-    <button id="downloadBtn">Download Now</button>
-
-    <div id="adBottom" class="ad-banner"></div>
+  <div class="download-box">
+    <div id="timer" class="timer">Please wait 15 seconds...</div>
+    <button id="downloadBtn" class="download-btn">⬇️ Download Now</button>
   </div>
+
+  <div id="adBottom" class="ad-banner">Loading Ad...</div>
 
   <script>
-    // Clock
-    function updateClock() {
+    // Show date and time
+    setInterval(() => {
       const now = new Date();
-      const hours = now.getHours() % 12 || 12;
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
-      const date = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
-      document.getElementById('clock').innerText = `${hours}:${minutes} ${ampm} | ${date}`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+      document.getElementById('datetime').innerText = now.toLocaleString();
+    }, 1000);
 
-    const movieId = new URLSearchParams(window.location.search).get('id');
-    let downloadLink = '';
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('id');
+    let videoLink = '';
+    let countdown = 15;
+
+    // Load movie info from JSON
+    fetch('videos.json')
+      .then(res => res.json())
+      .then(data => {
+        const movie = data.find(m => m.id === movieId);
+        if (movie && movie.video) {
+          videoLink = movie.video; // Use video link as download
+        } else {
+          document.getElementById('timer').innerText = 'Download link not found!';
+        }
+      });
+
+    // Countdown timer logic
+    const timerEl = document.getElementById('timer');
+    const btn = document.getElementById('downloadBtn');
+
+    const timerInterval = setInterval(() => {
+      if (countdown > 0) {
+        timerEl.innerText = `Please wait ${countdown--} seconds...`;
+      } else {
+        clearInterval(timerInterval);
+        timerEl.style.display = 'none';
+        btn.style.display = 'inline-block';
+        btn.onclick = () => {
+          window.open(videoLink, '_blank');
+        };
+      }
+    }, 1000);
 
     // Load ads
     fetch('ads.json')
       .then(res => res.json())
-      .then(data => {
-        const adTop = data[0];
-        const adBottom = data[1];
+      .then(ads => {
+        const adTop = ads[Math.floor(Math.random() * ads.length)];
+        const adBottom = ads[Math.floor(Math.random() * ads.length)];
 
-        document.getElementById('adTop').innerHTML = `<img src="${adTop.image}" alt="Ad">`;
-        document.getElementById('adTop').onclick = () => window.open(adTop.url, '_blank');
-
-        document.getElementById('adBottom').innerHTML = `<img src="${adBottom.image}" alt="Ad">`;
-        document.getElementById('adBottom').onclick = () => window.open(adBottom.url, '_blank');
-      });
-
-    // Load movie link
-    fetch('videos.json')
-      .then(res => res.json())
-      .then(movies => {
-        const movie = movies.find(m => m.id === movieId);
-        if (movie) {
-          downloadLink = movie.download;
-        }
-      });
-
-    // Timer countdown
-    let timeLeft = 3;
-    const timerElement = document.getElementById('timer');
-    const downloadBtn = document.getElementById('downloadBtn');
-
-    const timerInterval = setInterval(() => {
-      timeLeft--;
-      timerElement.textContent = timeLeft;
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        timerElement.style.display = 'none';
-        downloadBtn.style.display = 'inline-block';
-        downloadBtn.onclick = () => {
-          if (downloadLink) {
-            window.location.href = downloadLink;
-          } else {
-            alert("Download link not found!");
-          }
+        const adTopEl = document.getElementById('adTop');
+        adTopEl.innerHTML = `<img src="${adTop.image}" alt="Ad" style="width:100%; height:100%; object-fit:cover;">`;
+        adTopEl.onclick = () => {
+          window.open(adTop.link, '_blank');
         };
-      }
-    }, 1000);
-  </script>
 
+        const adBottomEl = document.getElementById('adBottom');
+        adBottomEl.innerHTML = `<img src="${adBottom.image}" alt="Ad" style="width:100%; height:100%; object-fit:cover;">`;
+        adBottomEl.onclick = () => {
+          window.open(adBottom.link, '_blank');
+        };
+      });
+  </script>
 </body>
 </html>
