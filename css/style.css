@@ -1,93 +1,188 @@
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   background: #0e0e0e;
   color: #fff;
   font-family: sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
 }
+
 header {
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  align-items: center;
+  padding: 12px 20px;
   background: #121212;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
+
 .logo {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   animation: glow 2s infinite alternate;
 }
+
 .clock {
   font-size: 14px;
-  margin-top: 5px;
 }
+
 @keyframes glow {
   from { text-shadow: 0 0 10px red; }
   to { text-shadow: 0 0 20px cyan; }
 }
+
+/* Slider */
 .slider {
   display: flex;
-  overflow: hidden;
-  height: 200px;
   position: relative;
+  height: 180px;
+  overflow: hidden;
 }
+
 .slider .slide {
   flex: 0 0 100%;
-  transition: transform 1s;
+  transition: opacity 1s ease;
   position: absolute;
   opacity: 0;
 }
+
 .slider .active {
   opacity: 1;
   position: relative;
 }
+
+main {
+  padding: 15px;
+}
+
+h2 {
+  margin: 20px 0 10px;
+  font-size: 20px;
+}
+
+/* Gallery */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
 }
+
 .card {
   background: #1e1e1e;
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;
   transition: transform 0.3s;
+  cursor: pointer;
 }
+
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
+
 .card img {
   width: 100%;
-  height: 100px;
+  height: 120px;
   object-fit: cover;
 }
+
 .card .title {
-  padding: 5px;
+  padding: 8px;
   font-size: 14px;
   text-align: center;
 }
+
+/* Video Player Page */
 .video-container video {
   width: 100%;
+  height: auto;
   max-height: 400px;
+  display: block;
+  margin: 10px 0;
 }
+
 .review {
-  padding: 20px;
-  font-size: 16px;
+  padding: 15px;
+  font-size: 15px;
+  background: #181818;
+  border-left: 4px solid red;
+  margin: 10px;
 }
+
+/* Download Button */
 .btn {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 20px;
   background: red;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 6px;
   text-decoration: none;
+  font-weight: bold;
+  margin: 20px auto;
   animation: pulse 1.5s infinite;
-  margin: 20px;
+  display: block;
+  text-align: center;
+  max-width: 200px;
 }
+
 @keyframes pulse {
   0% { transform: scale(1); opacity: 0.9; }
-  50% { transform: scale(1.1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 1; }
   100% { transform: scale(1); opacity: 0.9; }
+}
+
+/* Timer */
+.timer {
+  font-size: 28px;
+  text-align: center;
+  padding: 20px;
+  background: #1a1a1a;
+  margin: 30px auto;
+  width: 100px;
+  border-radius: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 18px;
+  }
+
+  .clock {
+    font-size: 12px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .card img {
+    height: 100px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .review {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .timer {
+    font-size: 22px;
+    padding: 16px;
+    width: 80px;
+  }
 }
