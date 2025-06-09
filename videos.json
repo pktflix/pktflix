@@ -2,9 +2,9 @@
   {
     "id": "movie1",
     "type": "movie",
-    "title": "Avengers: Endgame",
-    "thumb": "https://example.com/endgame.jpg",
-    "video": "https://example.com/endgame.m3u8",
+    "title": "Jongli",
+    "thumb": "https://m.media-amazon.com/images/M/MV5BMGI2NjI2MzAtNTkwYi00NWRlLWIwN2ItYTYyYTc3YjE0NjdlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Jongli%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
     "review": "An epic superhero finale."
   },
   {
