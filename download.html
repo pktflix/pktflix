@@ -2,156 +2,231 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Download | PKT Flix</title>
-  <link rel="stylesheet" href="css/style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Disable text selection and right click */
+    body, html {
+      margin:0; padding:0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #111;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
+      color: white;
+      -webkit-user-select: none;  /* Chrome/Safari */
+      -moz-user-select: none;     /* Firefox */
+      -ms-user-select: none;      /* IE10+ */
+      user-select: none;          /* Standard */
+      overflow-x: hidden;
     }
-
-    .ad-banner, .popup-ad {
-      margin: 20px auto;
-      max-width: 90%;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .ad-banner img, .popup-ad img {
-      width: 100%;
-      cursor: pointer;
-      border-radius: 10px;
-    }
-
-    #popupAd {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 150px;
-      height: 150px;
-      z-index: 9999;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    }
-
-    #popupAd img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      cursor: pointer;
-    }
-
-    .download-btn {
-      display: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      background-color: #ffcc00;
-      color: #000;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      margin-top: 30px;
-    }
-
-    #timer {
-      font-size: 22px;
-      color: #00ccff;
-    }
-
-    /* Copy protection */
     body {
+      -webkit-touch-callout: none; /* iOS Safari */
+    }
+    /* Prevent right-click */
+    body {
+      -webkit-user-drag: none;
+    }
+    body:before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999999;
+      pointer-events: none;
+    }
+    html {
+      -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
-    body::selection {
-      background: none;
+    /* Disable context menu */
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      padding: 15px 25px;
+      font-size: 20px;
+      font-weight: bold;
+      user-select:none;
+      -webkit-user-select:none;
     }
+    .top-bar .logo {
+      cursor: pointer;
+      animation: neon 1.5s infinite alternate;
+      color: white;
+    }
+    @keyframes neon {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff00cc; }
+      to { text-shadow: 0 0 20px #00f, 0 0 30px #ff0; }
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto 80px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #ffcc00;
+      animation: slideFadeIn 1s ease forwards;
+    }
+    #timer {
+      font-size: 48px;
+      margin-bottom: 25px;
+      font-weight: bold;
+      color: #00ccff;
+      animation: pulse 2s infinite;
+      user-select:none;
+    }
+    @keyframes pulse {
+      0%,100% { text-shadow: 0 0 5px #00ccff; }
+      50% { text-shadow: 0 0 20px #ff0066; }
+    }
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Download button style */
+    #downloadBtn {
+      display: none;
+      padding: 18px 40px;
+      font-size: 22px;
+      font-weight: bold;
+      border-radius: 40px;
+      border: none;
+      background: linear-gradient(45deg, #ff7e00, #ffd700); /* কমলা-হলুদ গ্রেডিয়েন্ট */
+      color: #111;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ffb100;
+      animation: glowBtn 2.5s infinite;
+      transition: transform 0.3s ease;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+    #downloadBtn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px #ffa500;
+    }
+    @keyframes glowBtn {
+      0%, 100% { box-shadow: 0 0 15px #ffa500; }
+      50% { box-shadow: 0 0 35px #ffd700; }
+    }
+
+    /* Ads banner styles */
+    .ad-banner {
+      margin: 20px auto;
+      max-width: 480px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 0 25px #ffb100aa;
+      animation: slideFade 1.5s ease forwards;
+      user-select:none;
+    }
+    .ad-banner img {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Fullscreen popup ad overlay */
+    #popupAd {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10001;
+      animation: fadeIn 1s ease forwards;
+      user-select:none;
+    }
+    #popupAd img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #f39c12;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
   </style>
 </head>
-<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
+<body>
 
-  <h2>Your Download is Ready</h2>
+  <div class="top-bar">
+    <div class="logo" onclick="location.href='index.html'">PKT Flix</div>
+    <div id="clock"></div>
+  </div>
 
-  <!-- Top Ad -->
-  <div class="ad-banner" id="topAd"></div>
+  <div class="container">
+    <h1>Download Link Ready...</h1>
+    <div id="timer">15</div>
 
-  <!-- Timer -->
-  <div id="timer">Please wait 15 seconds...</div>
+    <div id="adTop" class="ad-banner"></div>
 
-  <!-- Download Button -->
-  <button id="downloadBtn" class="download-btn">Download Now</button>
+    <button id="downloadBtn">Download Now</button>
 
-  <!-- Bottom Ad -->
-  <div class="ad-banner" id="bottomAd"></div>
+    <div id="adBottom" class="ad-banner"></div>
+  </div>
 
-  <!-- Popup Ad -->
   <div id="popupAd"></div>
 
-  <script>
-    const movieId = new URLSearchParams(window.location.search).get('id');
-    let downloadLink = "";
-
-    // Load movie data
-    fetch("assets/movies.json")
-      .then(res => res.json())
-      .then(data => {
-        const movie = data.find(item => item.id === movieId);
-        if (!movie) return alert("Movie not found");
-        downloadLink = movie.video;
-
-        let timeLeft = 15;
-        const timerEl = document.getElementById("timer");
-        const interval = setInterval(() => {
-          timeLeft--;
-          timerEl.innerText = `Please wait ${timeLeft} seconds...`;
-          if (timeLeft <= 0) {
-            clearInterval(interval);
-            timerEl.style.display = "none";
-            const btn = document.getElementById("downloadBtn");
-            btn.style.display = "inline-block";
-            btn.onclick = () => {
-              openInBg(downloadLink);
-            };
-          }
-        }, 1000);
-      });
-
-    // Load ads
-    fetch("assets/ads.json")
-      .then(res => res.json())
-      .then(ads => {
-        const topAd = ads.find(ad => ad.position === "download_top");
-        const bottomAd = ads.find(ad => ad.position === "download_bottom");
-        const popupAd = ads.find(ad => ad.position === "popup");
-
-        if (topAd) {
-          document.getElementById("topAd").innerHTML = `<img src="${topAd.image}" onclick="openInBg('${topAd.link}')">`;
-        }
-        if (bottomAd) {
-          document.getElementById("bottomAd").innerHTML = `<img src="${bottomAd.image}" onclick="openInBg('${bottomAd.link}')">`;
-        }
-        if (popupAd) {
-          document.getElementById("popupAd").innerHTML = `<img src="${popupAd.image}" onclick="openInBg('${popupAd.link}')">`;
-        }
-      });
-
-    function openInBg(url) {
-      const a = document.createElement("a");
-      a.href = url;
-      a.target = "blank";
-      a.rel = "noopener noreferrer";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+<script>
+  // Disable right-click and keyboard shortcuts for copying
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'a')) || e.key === 'F12') {
+      e.preventDefault();
     }
-  </script>
+  });
 
-</body>
-</html>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const hours = now.getHours() % 12 || 12;
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const date = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    document.getElementById('clock').innerText = `${hours}:${minutes} ${ampm} | ${date}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Get movieId from URL
+  const movieId = new URLSearchParams(window.location.search).get('id');
+
+  let downloadLink = '';
+  let adsData = [];
+
+  // Load ads.json and show ads + popup
+  fetch('assets/ads.json')
+    .then(res => res.json())
+    .then(data => {
+      adsData = data;
+      if(adsData.length < 3) {
+        console.warn('ads.json should have at least 3 ads');
+      }
+      // Top ad
+      const topAd = adsData[0];
+      const adTop = document.getElementById('adTop');
+      adTop.innerHTML = `<img src="${topAd.image}" alt="Top Ad">`;
+      adTop.onclick = () => window.open(topAd.url, '_blank');
+
+      // Bottom ad
+      const bottomAd = adsData[1];
+      const adBottom = document.getElementById('adBottom');
+      adBottom.innerHTML = `<img src="${bottomAd.image}" alt="Bottom Ad">`;
+      adBottom.onclick = () => window.open(bottomAd.url, '_
