@@ -331,7 +331,7 @@ body {
   background: #111;
 }
 .logo {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
   color: #00ffff;
   animation: lighting 2s infinite alternate;
@@ -382,7 +382,7 @@ body {
 }
 @media (max-width: 600px) {
   .logo {
-    font-size: 20px;
+    font-size: 26px;
   }
   .clock-date {
     font-size: 12px;
