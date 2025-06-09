@@ -1,4 +1,4 @@
-fetch('assets/banner.json')
+fetch('banners.json')
   .then(res => res.json())
   .then(banners => {
     const bannerSlider = document.getElementById('bannerSlider');
@@ -11,7 +11,7 @@ fetch('assets/banner.json')
     });
   });
 
-fetch('assets/movies.json')
+fetch('video.json')
   .then(res => res.json())
   .then(data => {
     const movies = data.filter(item => item.type === 'movie').slice(0, 20);
