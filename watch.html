@@ -1,193 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PKT Flix - Watch</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watch | PKT Flix</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css"/>
   <style>
     body {
       margin: 0;
-      background-color: #000;
-      color: #fff;
       font-family: Arial, sans-serif;
-      text-align: center;
+      background: #000;
+      color: #fff;
     }
 
-    header {
-      background: #111;
-      padding: 10px 20px;
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: linear-gradient(90deg, #ff0080, #7928ca);
+      padding: 10px 20px;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     .logo {
-      font-size: 30px;
-      font-weight: bold;
-      background: linear-gradient(45deg, #00f0ff, #ff00ff, #00ff00);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      text-decoration: none;
-      animation: glow 1.5s infinite alternate;
+      color: #fff;
+      cursor: pointer;
+      font-size: 32px;
+      animation: glow 2s infinite alternate;
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 5px #00f0ff; }
-      to { text-shadow: 0 0 25px #ff00ff; }
+      0% { text-shadow: 0 0 10px #ff0080; }
+      100% { text-shadow: 0 0 20px #00f0ff; }
     }
 
-    #clock {
-      font-size: 14px;
+    #player {
+      width: 100%;
+      max-height: 300px;
+      background: #000;
+    }
+
+    .content {
+      text-align: center;
+      padding: 10px;
+    }
+
+    #viewCount {
+      margin-top: 10px;
+      font-size: 16px;
       color: #ccc;
     }
 
-    .video-container {
-      width: 100%;
-      max-width: 100%;
-      aspect-ratio: 16/9;
-      margin-top: 10px;
-    }
-
-    video {
-      width: 100%;
-      height: 100%;
-      background-color: #000;
-    }
-
     .poster {
-      width: 130px;
-      border-radius: 8px;
-      margin-top: 15px;
-    }
-
-    .title {
-      font-size: 22px;
-      margin: 10px 0;
-      font-weight: bold;
-    }
-
-    .review-box {
+      max-width: 90%;
       margin: 15px auto;
-      max-width: 600px;
-      background: #1a1a1a;
-      padding: 15px;
       border-radius: 10px;
-      animation: fadeIn 1s ease-in;
+      box-shadow: 0 0 10px #333;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .movie-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .review {
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 15px;
+      background: #111;
+      border-left: 4px solid #ff0080;
+      animation: slideIn 1s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .download-btn {
-      margin-top: 40px;
-      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #ff0080, #00f0ff, #ffbf00);
       color: white;
-      padding: 15px 40px;
-      font-size: 26px;
+      font-size: 22px;
+      font-weight: bold;
       border: none;
-      border-radius: 50px;
+      border-radius: 30px;
       cursor: pointer;
-      animation: pulse 2s infinite, glowBorder 4s linear infinite;
-      text-decoration: none;
-      position: relative;
-      display: inline-block;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% { transform: scale(1); box-shadow: 0 0 10px #ff0080; }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px #00f0ff; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #ff0080; }
     }
 
-    @keyframes glowBorder {
-      0% { box-shadow: 0 0 10px #ff416c; }
-      25% { box-shadow: 0 0 15px #ff4b2b; }
-      50% { box-shadow: 0 0 20px #00f0ff; }
-      75% { box-shadow: 0 0 15px #00ffcc; }
-      100% { box-shadow: 0 0 10px #ff416c; }
-    }
-
-    @media (max-width: 600px) {
-      .poster {
-        width: 90px;
-      }
-      .title {
+    @media screen and (max-width: 600px) {
+      .movie-title {
         font-size: 18px;
       }
+
       .download-btn {
         font-size: 20px;
-        padding: 12px 25px;
-      }
-      .logo {
-        font-size: 24px;
+        padding: 10px 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <a href="index.html" class="logo">PKT Flix</a>
-    <div id="clock"></div>
-  </header>
-
-  <div class="video-container">
-    <video id="videoPlayer" controls>
-      <source id="videoSource" src="" type="">
-      Your browser does not support the video tag.
-    </video>
+  <div class="header">
+    <div class="logo" onclick="location.href='index.html'">PKT Flix</div>
   </div>
 
-  <img id="poster" class="poster" src="" alt="Poster">
-  <div class="title" id="movieTitle">Loading...</div>
-  <div class="review-box" id="reviewBox">Please wait...</div>
+  <video id="player" controls playsinline></video>
 
-  <a id="downloadBtn" class="download-btn" href="#">⬇ Download Now</a>
+  <div id="viewCount">Loading views...</div>
+
+  <div class="content">
+    <img id="poster" class="poster" src="" alt="Poster">
+    <div class="movie-title" id="title">Loading title...</div>
+    
+    <div class="review" id="description">Loading description...</div>
+    
+    <button class="download-btn" id="downloadBtn">Download</button>
+  </div>
+
+  <!-- Plyr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script>
-    // Clock
-    function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString('en-US', {
-        hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true
-      });
-      const date = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()}`;
-      document.getElementById('clock').textContent = `${time} | ${date}`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAS11X8mZDlVZUy2qhzijO35dS4q7GhQtg",
+      authDomain: "pktflix2.firebaseapp.com",
+      databaseURL: "https://pktflix2-default-rtdb.firebaseio.com",
+      projectId: "pktflix2",
+      storageBucket: "pktflix2.firebasestorage.app",
+      messagingSenderId: "45953017812",
+      appId: "1:45953017812:web:006ac4868de1f216ea9841"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
-    // Load movie from JSON
+    // Get movie ID from URL
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
 
-    fetch("videos.json")
+    fetch('assets/movies.json')
       .then(res => res.json())
       .then(data => {
         const movie = data.find(m => m.id === movieId);
-        if (!movie) return alert("মুভিটি প্লে হচ্ছে না। ডাওনলোড করে দেখতে পারেন");
+        if (!movie) return;
 
-        document.getElementById("movieTitle").innerText = movie.title;
-        document.getElementById("poster").src = movie.thumbnail;
-        document.getElementById("reviewBox").innerText = movie.description;
-        document.getElementById("videoSource").src = movie.video;
+        // Load player
+        const player = new Plyr('#player');
+        const video = document.getElementById('player');
+        video.src = movie.video;
 
-        // Detect video type
-        const ext = movie.video.split('.').pop().toLowerCase();
-        let type = "video/mp4";
-        if (ext === "m3u8") type = "application/x-mpegURL";
-        else if (ext === "webm") type = "video/webm";
-        else if (ext === "ogg" || ext === "ogv") type = "video/ogg";
-        else if (ext === "mkv") type = "video/mp4"; // MKV handled as MP4 fallback
-        document.getElementById("videoSource").type = type;
+        // Set metadata
+        document.getElementById('title').innerText = movie.title;
+        document.getElementById('poster').src = movie.thumbnail;
+        document.getElementById('description').innerText = movie.description;
 
-        document.getElementById("videoPlayer").load();
-        document.getElementById("downloadBtn").href = `download.html?id=${movie.id}`;
+        // View Count
+        const ref = database.ref("views/" + movieId);
+        ref.transaction(current => (current || 0) + 1);
+        ref.on("value", snapshot => {
+          const count = snapshot.val() || 0;
+          document.getElementById("viewCount").innerText = count + " views";
+        });
+
+        // Download
+        document.getElementById("downloadBtn").addEventListener("click", () => {
+          window.location.href = "download.html?id=" + movieId;
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('title').innerText = "Movie not found.";
       });
   </script>
-
 </body>
 </html>
