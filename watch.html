@@ -165,30 +165,20 @@
     updateClock();
 
     // Load video + data from JSON (mock example)
-    fetch("assets/movies.json")
-      .then(res => res.json())
-      .then(data => {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id");
-        const movie = data.find(m => m.id === id);
+    const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-        if (movie) {
-          // Load poster, title, review
-          document.getElementById("poster").src = movie.thumbnail;
-          document.getElementById("movieTitle").innerText = movie.name;
-          document.getElementById("reviewBox").innerText = movie.review;
-
-          // Load video
-          const video = document.getElementById("videoPlayer");
-          if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(movie.video);
-            hls.attachMedia(video);
-          } else {
-            video.src = movie.video;
-          }
-        }
-      });
+fetch("videos.json")
+  .then(res => res.json())
+  .then(data => {
+    const movie = data.find(item => item.id === id);
+    if (movie) {
+      document.getElementById("movieTitle").innerText = movie.title;
+      document.getElementById("poster").src = movie.thumbnail;
+      document.getElementById("reviewBox").innerText = movie.description;
+      // এবং ভিডিও প্লে করুন...
+    }
+  });
   </script>
 </body>
 </html>
