@@ -164,7 +164,7 @@
     const videoPlayer = document.getElementById('videoPlayer');
     const movieId = new URLSearchParams(window.location.search).get('id');
 
-    fetch('assets/movies.json')
+    fetch('videos.json')
       .then(res => res.json())
       .then(data => {
         const movie = data.find(item => item.id === movieId);
