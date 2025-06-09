@@ -3,7 +3,7 @@
     "id": "tt001",
     "title": "Avengers Endgame",
     "type": "movie",
-    "thumbnail": "https://example.com/thumb/avengers.jpg",
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlhWlytpWZN6wHMvELtGkWmuPnYZvCmZzC1QlNmzIifyfuzEUmI-PVRR0&s=10",
     "video": "https://example.com/video/avengers.m3u8",
     "description": "Epic Marvel conclusion."
   },
