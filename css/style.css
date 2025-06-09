@@ -98,6 +98,12 @@ h2 {
 .card .title {
   padding: 8px;
   font-size: 14px;
+  background: #000000cc;
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   text-align: center;
 }
 
