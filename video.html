@@ -169,15 +169,22 @@
         document.getElementById('description').innerText = movie.description;
 
         if (movie.video.endsWith('.m3u8')) {
-          new Clappr.Player({
-            source: movie.video,
-            parentId: '#videoPlayer',
-            autoPlay: true,
-            width: '100%',
-            height: '100%',
-            mute: false
-          });
-        } else {
+  const player = new Clappr.Player({
+    source: movie.video,
+    parentId: '#videoPlayer',
+    autoPlay: true,
+    mute: true, // autoplay allow
+    width: '100%',
+    height: '100%',
+    poster: movie.thumbnail,
+  });
+
+  player.on(Clappr.Events.PLAYER_ERROR, function(err) {
+    console.error("Clappr Error: ", err);
+    alert("⚠️ ভিডিও প্লে করা যাচ্ছে না। হয়তো লিংক ডেড বা CORS সমস্যা।");
+  });
+}
+else {
           document.getElementById('videoPlayer').innerHTML = `
             <video src="${movie.video}" controls autoplay style="width:100%; height:100%;"></video>
           `;
