@@ -1,10 +1,42 @@
 [
   {
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThFtUwJh2f7lnWjNm8Y8a06d50T-wzoUKdQw&s",
-    "link": "watch.html?id=tt001"
+    "id": "tt001",
+    "title": "Jongli",
+    "type": "movie",
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlhWlytpWZN6wHMvELtGkWmuPnYZvCmZzC1QlNmzIifyfuzEUmI-PVRR0&s=10",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Jongli%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
+    "description": "A troubled university student, haunted by family trauma and heartbreak, descends into isolation--until an unexpected bond with a little girl forces him to confront his pain and choose between redemption or remaining lost."
   },
   {
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThFtUwJh2f7lnWjNm8Y8a06d50T-wzoUKdQw&s",
-    "link": "watch.html?id=tt004"
+    "id": "tt002",
+    "title": "Borbaad",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/4LiHg8nUlFw/hq720.jpg",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Borbaad%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
+    "description": "After a heartbreak by Nitu, Ariyan Mizra seeks revenge, guided by his father Adib's wisdom. Their story transforms from romance to violence, culminating in courtroom confrontations over justice."
+  },
+  {
+    "id": "tt003",
+    "title": "Daagi",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/80952qaL6P8/hq720.jpg",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Daagi%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
+    "description": "Nishan, born into a middle-class family, dreams of getting rich fast. While his father urges him to pursue an honest living, Nishan chooses a riskier route-joining a gang in India led by a smuggler. His job: drug trafficking. Meanwhile, his girlfriend Jerin, who remains in Bangladesh, faces pressure from her family to marry."
+  },
+  {
+    "id": "chokkor",
+    "title": "Chokkor 302",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/IcHp0Jd11j0/maxresdefault.jpg",
+    "video": "https://pixeldrain.net/api/file/TLwmxE6A?download",
+    "description": "Chokkor 302 is a crime thriller that keeps you hooked from the very beginning. The story follows a mysterious case full of suspense and unexpected twists. It's a type of film we don't often see in Bangladeshi cinema. The acting is excellent from every character."
+  },
+  {
+    "id": "tv004",
+    "title": "Ten Sports",
+    "type": "series",
+    "thumbnail": "https://mir-s3-cdn-cf.behance.net/projects/404/332603106262015.Y3JvcCwxNDAwLDEwOTUsMCwxNTI.png",
+    "video": "https://ddy6new.newkso.ru/ddy6/premium741/mono.m3u8",
+    "description": "TenSportsHD is a Pakistani sports channel operated by the Hum Network. It mainly broadcasts Cricket, Football, Mixed martial arts, UFC, WWE, Tennis.."
   }
 ]
