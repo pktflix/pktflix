@@ -1,19 +1,197 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Download - PKT Flix</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Download | PKT Flix</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #ffcc00;
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .ad-banner {
+      margin: 20px auto;
+      max-width: 90%;
+      border-radius: 10px;
+      overflow: hidden;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .ad-banner img {
+      width: 100%;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    #timer {
+      font-size: 24px;
+      margin-top: 30px;
+      color: #00ccff;
+      animation: pulse 1s infinite;
+    }
+
+    .download-btn {
+      display: none;
+      margin: 30px auto;
+      padding: 15px 30px;
+      font-size: 20px;
+      background: linear-gradient(45deg, #ff8800, #ffee00);
+      border: none;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px #ff0; }
+      50% { box-shadow: 0 0 20px #f90; }
+      100% { box-shadow: 0 0 5px #ff0; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #popupAd {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 150px;
+      height: 150px;
+      z-index: 9999;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    #popupAd img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* Copy Protection */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    body, html {
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body::selection {
+      background: none;
+    }
+
+    body::-moz-selection {
+      background: none;
+    }
+
+    body {
+      pointer-events: auto;
+    }
+  </style>
 </head>
-<body>
-  <header>
-    <div class="logo">PKT Flix</div>
-    <div id="clock" class="clock"></div>
-  </header>
+<body oncontextmenu="return false" onkeydown="return false" onmousedown="return false">
 
-  <div class="timer" id="timer">10</div>
-  <a id="real-link" class="btn" style="display:none;">Download Now</a>
+  <h1>Your Download is Almost Ready</h1>
 
-  <script type="module" src="js/timer.js"></script>
+  <div class="ad-banner" id="topAd"></div>
+
+  <div id="timer">Preparing download... 15s</div>
+
+  <button id="downloadBtn" class="download-btn">Download Now</button>
+
+  <div class="ad-banner" id="bottomAd"></div>
+
+  <div id="popupAd"></div>
+
+  <script>
+    const movieId = new URLSearchParams(window.location.search).get('id');
+    let downloadLink = "";
+
+    // Load movie from movies.json
+    fetch("assets/movies.json")
+      .then(res => res.json())
+      .then(data => {
+        const movie = data.find(item => item.id === movieId);
+        if (!movie) return alert("Movie not found");
+
+        downloadLink = movie.video;
+
+        // Timer
+        let seconds = 15;
+        const timer = setInterval(() => {
+          document.getElementById("timer").innerText = `Preparing download... ${seconds}s`;
+          seconds--;
+          if (seconds < 0) {
+            clearInterval(timer);
+            document.getElementById("timer").style.display = "none";
+            const btn = document.getElementById("downloadBtn");
+            btn.style.display = "block";
+            btn.onclick = () => {
+              openInBg(downloadLink);
+            };
+          }
+        }, 1000);
+      });
+
+    // Load ads from ads.json
+    fetch("assets/ads.json")
+      .then(res => res.json())
+      .then(ads => {
+        const topAd = ads.find(ad => ad.position === "download_top");
+        const bottomAd = ads.find(ad => ad.position === "download_bottom");
+        const popupAd = ads.find(ad => ad.position === "popup");
+
+        if (topAd) {
+          document.getElementById("topAd").innerHTML = `<img src="${topAd.image}" alt="Ad" onclick="openInBg('${topAd.link}')">`;
+        }
+        if (bottomAd) {
+          document.getElementById("bottomAd").innerHTML = `<img src="${bottomAd.image}" alt="Ad" onclick="openInBg('${bottomAd.link}')">`;
+        }
+        if (popupAd) {
+          document.getElementById("popupAd").innerHTML = `<img src="${popupAd.image}" alt="Popup Ad" onclick="openInBg('${popupAd.link}')">`;
+        }
+      });
+
+    function openInBg(url) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = 'blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+
 </body>
 </html>
