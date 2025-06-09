@@ -1,10 +1,10 @@
 [
   {
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThFtUwJh2f7lnWjNm8Y8a06d50T-wzoUKdQw&s",
-    "link": "video.html?id=movie1"
+    "link": "watch.html?id=tt001"
   },
   {
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThFtUwJh2f7lnWjNm8Y8a06d50T-wzoUKdQw&s",
-    "link": "video.html?id=series1"
+    "link": "watch.html?id=tt004"
   }
 ]
