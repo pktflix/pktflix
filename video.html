@@ -149,8 +149,7 @@
   <!-- Ad under review -->
   <div class="ad-box">[Ad Placeholder Below Review]</div>
 
-  <button class="download-btn" onclick="location.href='download.html?id='+movieId">Download Now</button>
-
+ 
   <div class="related-section">
     <h3>Related Movies</h3>
 
@@ -164,7 +163,7 @@
     const videoPlayer = document.getElementById('videoPlayer');
     const movieId = new URLSearchParams(window.location.search).get('id');
 
-    fetch('videos.json')
+    fetch('tv.json')
       .then(res => res.json())
       .then(data => {
         const movie = data.find(item => item.id === movieId);
