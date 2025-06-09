@@ -66,20 +66,26 @@
       background: #1a1a1a;
       padding: 15px;
       border-radius: 10px;
-      margin: 15px auto;
+      margin: 15px auto 30px;
       max-width: 600px;
+      animation: slideIn 1.2s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .download-btn {
       background: linear-gradient(to right, #ff416c, #ff4b2b);
       color: white;
-      padding: 15px 30px;
-      font-size: 20px;
+      padding: 15px 35px;
+      font-size: 22px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       animation: pulse 1.5s infinite;
-      margin-top: 20px;
+      display: inline-block;
     }
 
     @keyframes pulse {
@@ -94,12 +100,12 @@
       }
 
       .review {
-        padding: 10px;
+        padding: 12px;
       }
 
       .download-btn {
         font-size: 18px;
-        padding: 10px 20px;
+        padding: 12px 25px;
       }
 
       .poster {
@@ -126,22 +132,22 @@
     <img id="poster" class="poster" src="" alt="Poster">
     <div class="title" id="movieTitle">Loading...</div>
     <div class="review" id="reviewBox">Please wait...</div>
-    <a id="downloadBtn" class="download-btn" href="#">Download Now</a>
+
+    <a id="downloadBtn" class="download-btn" href="#">⬇ Download Now</a>
   </div>
 
   <script>
-    // Clock setup
+    // Clock (12-hour with AM/PM)
     function updateClock() {
       const now = new Date();
-      const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-      const time = now.toLocaleTimeString('en-US', options);
-      const date = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth()+1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+      const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+      const date = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()}`;
       document.getElementById('clock').textContent = `${time} | ${date}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Load movie by ID from JSON
+    // Load movie from JSON by ID
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
 
@@ -159,5 +165,6 @@
         document.getElementById("downloadBtn").href = `download.html?id=${movie.id}`;
       });
   </script>
+
 </body>
 </html>
