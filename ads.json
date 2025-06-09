@@ -1,11 +1,29 @@
 {
   "playerBottomAd": {
-    "enabled": false,
-    "code": ""
+    "enabled": true,
+    "code": "<script type="text/javascript">
+	atOptions = {
+		'key' : '8e2d13a1708fc10a344b0c1c37918d9e',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8e2d13a1708fc10a344b0c1c37918d9e/invoke.js"></script>"
   },
   "relatedMoviesTopAd": {
-    "enabled": false,
-    "code": ""
+    "enabled": true,
+    "code": "<script type="text/javascript">
+	atOptions = {
+		'key' : '46d76325063d473f9177dd6f1b4e9531',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/46d76325063d473f9177dd6f1b4e9531/invoke.js"></script>"
   },
   "popupAd": {
     "enabled": true,
