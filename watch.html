@@ -155,7 +155,7 @@
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
 
-    fetch('assets/movies.json')
+    fetch('videos.json')
       .then(res => res.json())
       .then(data => {
         const movie = data.find(m => m.id === movieId);
