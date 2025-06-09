@@ -1,10 +1,10 @@
 [
   {
-    "image": "https://example.com/banner1.jpg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4TS_QZbgpN1hhgxpya8iHzk796CoLUK95BA&s",
     "link": "video.html?id=movie1"
   },
   {
-    "image": "https://example.com/banner2.jpg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4TS_QZbgpN1hhgxpya8iHzk796CoLUK95BA&s",
     "link": "video.html?id=series1"
   }
 ]
