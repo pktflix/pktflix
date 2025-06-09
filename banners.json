@@ -1,0 +1,10 @@
+[
+  {
+    "image": "https://example.com/banner1.jpg",
+    "link": "video.html?id=movie1"
+  },
+  {
+    "image": "https://example.com/banner2.jpg",
+    "link": "video.html?id=series1"
+  }
+]
