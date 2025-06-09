@@ -1,9 +1,18 @@
 [
   {
-    "id": "movie1",
-    "name": "Avengers: Endgame",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlhWlytpWZN6wHMvELtGkWmuPnYZvCmZzC1QlNmzIifyfuzEUmI-PVRR0&s=10",
-    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Jongli%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
-    "review": "The Avengers assemble for the final showdown to save the universe."
+    "id": "tt001",
+    "title": "Avengers Endgame",
+    "type": "movie",
+    "thumbnail": "https://example.com/thumb/avengers.jpg",
+    "video": "https://example.com/video/avengers.m3u8",
+    "description": "Epic Marvel conclusion."
+  },
+  {
+    "id": "tt002",
+    "title": "Stranger Things",
+    "type": "series",
+    "thumbnail": "https://example.com/thumb/stranger.jpg",
+    "video": "https://example.com/video/stranger.m3u8",
+    "description": "Mystery in Hawkins."
   }
 ]
