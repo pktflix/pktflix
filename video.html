@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Watch | PKT Flix</title>
   <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <style>
     body {
@@ -32,15 +33,10 @@
       from { text-shadow: 0 0 5px #fff, 0 0 10px #ff00cc; }
       to { text-shadow: 0 0 20px #00f, 0 0 30px #ff0; }
     }
-    #videoWrapper {
-      width: 100%;
-      max-width: 100%;
-      height: 60vh;
-      background: #000;
-    }
     #videoPlayer {
       width: 100%;
-      height: 100%;
+      max-height: 60vh;
+      background: #000;
     }
     .poster-section {
       text-align: center;
@@ -92,26 +88,32 @@
       50% { box-shadow: 0 0 20px yellow; }
       100% { box-shadow: 0 0 5px orange; }
     }
+
     .related-section {
       margin: 40px 20px;
     }
+
     .related-section h3 {
       margin-bottom: 10px;
       color: #ffcc00;
     }
+
     .related-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
     }
+
     .related-grid img {
       width: 100%;
       border-radius: 10px;
       transition: transform 0.3s ease;
     }
+
     .related-grid img:hover {
       transform: scale(1.05);
     }
+
     .ad-box {
       margin: 20px auto;
       max-width: 90%;
@@ -131,10 +133,7 @@
     <div id="clock"></div>
   </div>
 
-  <!-- Player wrapper -->
-  <div id="videoWrapper">
-    <div id="videoPlayer"></div>
-  </div>
+  <div id="videoPlayer"></div> <!-- Clappr will be loaded here -->
 
   <div class="ad-box">[Ad Placeholder Below Video]</div>
 
@@ -168,33 +167,29 @@
         document.getElementById('movieTitle').innerText = movie.title;
         document.getElementById('description').innerText = movie.description;
 
-        if (movie.video.endsWith('.m3u8')) {
-  const player = new Clappr.Player({
-    source: movie.video,
-    parentId: '#videoPlayer',
-    autoPlay: true,
-    mute: true, // autoplay allow
-    width: '100%',
-    height: '100%',
-    poster: movie.thumbnail,
-  });
-
-  player.on(Clappr.Events.PLAYER_ERROR, function(err) {
-    console.error("Clappr Error: ", err);
-    alert("⚠️ ভিডিও প্লে করা যাচ্ছে না। হয়তো লিংক ডেড বা CORS সমস্যা।");
-  });
-}
-else {
-          document.getElementById('videoPlayer').innerHTML = `
-            <video src="${movie.video}" controls autoplay style="width:100%; height:100%;"></video>
-          `;
-        }
-
-        fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`, {
-          method: 'PATCH',
-          body: JSON.stringify({ viewed: Date.now() }),
+        // Use Clappr for m3u8 streaming
+        const player = new Clappr.Player({
+          source: movie.video,
+          parentId: '#videoPlayer',
+          autoPlay: true,
+          mute: true, // Required for autoplay in modern browsers
+          poster: movie.thumbnail,
+          width: '100%',
+          height: '60vh',
         });
 
+        player.on(Clappr.Events.PLAYER_ERROR, function(err) {
+          console.error("Clappr Error: ", err);
+          alert("⚠️ ভিডিও চালানো যাচ্ছে না।");
+        });
+
+        // Update views
+        fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`, {
+          method: 'PATCH',
+          body: JSON.stringify({ [Date.now()]: true }),
+        });
+
+        // Fetch view count
         fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`)
           .then(res => res.json())
           .then(data => {
@@ -202,6 +197,7 @@ else {
             document.getElementById('viewCount').innerText = `👁️ ${count} views`;
           });
 
+        // Related movies
         const related = data.filter(item => item.type === movie.type && item.id !== movieId).slice(0, 6);
         document.getElementById('relatedMovies').innerHTML = related.map(rel => `
           <a href="watch.html?id=${rel.id}">
@@ -218,13 +214,18 @@ else {
       const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
       document.getElementById('clock').innerText = `${hours}:${minutes} ${ampm} | ${date}`;
     }
+
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Anti-theft script
+    // Anti-theft
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = e => {
-      if (e.keyCode === 123 || (e.ctrlKey && ['u', 'U', 's', 'S'].includes(e.key)) || (e.ctrlKey && e.shiftKey && ['I', 'i', 'C', 'c', 'J', 'j'].includes(e.key))) {
+      if (
+        e.keyCode === 123 || 
+        (e.ctrlKey && ['u', 'U', 's', 'S'].includes(e.key)) || 
+        (e.ctrlKey && e.shiftKey && ['I', 'i', 'C', 'c', 'J', 'j'].includes(e.key))
+      ) {
         e.preventDefault();
         return false;
       }
