@@ -1,1 +1,42 @@
-
+[
+  {
+    "id": "tt001",
+    "title": "Jongli",
+    "type": "movie",
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlhWlytpWZN6wHMvELtGkWmuPnYZvCmZzC1QlNmzIifyfuzEUmI-PVRR0&s=10",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Jongli%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
+    "description": "A troubled university student, haunted by family trauma and heartbreak, descends into isolation--until an unexpected bond with a little girl forces him to confront his pain and choose between redemption or remaining lost."
+  },
+  {
+    "id": "tt002",
+    "title": "Borbaad",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/4LiHg8nUlFw/hq720.jpg",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Borbaad%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
+    "description": "After a heartbreak by Nitu, Ariyan Mizra seeks revenge, guided by his father Adib's wisdom. Their story transforms from romance to violence, culminating in courtroom confrontations over justice."
+  },
+  {
+    "id": "tt003",
+    "title": "Daagi",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/80952qaL6P8/hq720.jpg",
+    "video": "https://pub-ed0ca22af5c04301b7abe9dac4aaf9bc.r2.dev/CineDoze.Com-Daagi%202025%20MLSBD.Shop-Bengali%20Chorki%20WEB-DL%20720p.mkv",
+    "description": "Nishan, born into a middle-class family, dreams of getting rich fast. While his father urges him to pursue an honest living, Nishan chooses a riskier route-joining a gang in India led by a smuggler. His job: drug trafficking. Meanwhile, his girlfriend Jerin, who remains in Bangladesh, faces pressure from her family to marry."
+  },
+  {
+    "id": "chokkor",
+    "title": "Chokkor 302",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/IcHp0Jd11j0/maxresdefault.jpg",
+    "video": "https://pixeldrain.net/api/file/TLwmxE6A?download",
+    "description": "Chokkor 302 is a crime thriller that keeps you hooked from the very beginning. The story follows a mysterious case full of suspense and unexpected twists. It's a type of film we don't often see in Bangladeshi cinema. The acting is excellent from every character."
+  },
+  {
+    "id": "tt004",
+    "title": "Bachelor Point",
+    "type": "series",
+    "thumbnail": "https://i.ytimg.com/vi/_haYpgEJrB8/hq720.jpg",
+    "video": "https://be7713.rcr82.waw05.cdn255.com/hls2/03/09169/xe6udso5cw2o_h/index-v1-a1.m3u8?t=48T6aE_AM7ChRfAFNwMqES7fO01gf4e00-a_V03J5qg&s=1749474872&e=10800&f=45903984&srv=1060&asn=140901&sp=4000&p=&fr=xe6udso5cw2o",
+    "description": "Bachelor Point (2025) Season 5."
+  }
+]
