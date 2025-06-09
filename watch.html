@@ -4,190 +4,199 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Watch | PKT Flix</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: white;
     }
-
-    .header {
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(90deg, #ff0080, #7928ca);
-      padding: 10px 20px;
+      padding: 15px;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: white;
+      font-size: 18px;
+    }
+    .top-bar .logo {
       font-size: 24px;
       font-weight: bold;
-    }
-
-    .logo {
-      color: #fff;
       cursor: pointer;
-      font-size: 32px;
-      animation: glow 2s infinite alternate;
+      animation: neon 1.5s infinite alternate;
     }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 10px #ff0080; }
-      100% { text-shadow: 0 0 20px #00f0ff; }
+    @keyframes neon {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff00cc; }
+      to { text-shadow: 0 0 20px #00f, 0 0 30px #ff0; }
     }
-
-    #player {
+    #videoPlayer {
       width: 100%;
-      max-height: 300px;
+      max-height: 60vh;
       background: #000;
     }
-
-    .content {
+    .poster-section {
       text-align: center;
-      padding: 10px;
+      margin-top: 20px;
     }
-
-    #viewCount {
+    .poster-section img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+    }
+    .poster-section h2 {
+      margin-top: 10px;
+      font-size: 24px;
+      color: #ffcc00;
+    }
+    .view-count {
+      text-align: center;
       margin-top: 10px;
       font-size: 16px;
       color: #ccc;
     }
-
-    .poster {
-      max-width: 90%;
-      margin: 15px auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #333;
-    }
-
-    .movie-title {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
     .review {
-      max-width: 90%;
       margin: 20px auto;
+      max-width: 90%;
       padding: 15px;
-      background: #111;
-      border-left: 4px solid #ff0080;
-      animation: slideIn 1s ease;
+      background: #222;
+      border-radius: 10px;
+      animation: slideFade 1s ease;
     }
-
-    @keyframes slideIn {
-      from { transform: translateX(-100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
     .download-btn {
-      margin-top: 20px;
-      padding: 12px 30px;
-      background: linear-gradient(45deg, #ff0080, #00f0ff, #ffbf00);
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
+      display: block;
+      margin: 30px auto;
+      padding: 15px 30px;
+      font-size: 20px;
+      background: linear-gradient(45deg, #ff0066, #00ccff);
       border: none;
+      color: white;
       border-radius: 30px;
       cursor: pointer;
       animation: pulse 2s infinite;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
-
     @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 10px #ff0080; }
-      50% { transform: scale(1.05); box-shadow: 0 0 20px #00f0ff; }
-      100% { transform: scale(1); box-shadow: 0 0 10px #ff0080; }
+      0% { box-shadow: 0 0 5px #00ccff; }
+      50% { box-shadow: 0 0 20px #ff0066; }
+      100% { box-shadow: 0 0 5px #00ccff; }
     }
 
-    @media screen and (max-width: 600px) {
-      .movie-title {
-        font-size: 18px;
-      }
+    .related-section {
+      margin: 40px 20px;
+    }
 
-      .download-btn {
-        font-size: 20px;
-        padding: 10px 20px;
-      }
+    .related-section h3 {
+      margin-bottom: 10px;
+      color: #ffcc00;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .related-grid img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .related-grid img:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
+  <div class="top-bar">
     <div class="logo" onclick="location.href='index.html'">PKT Flix</div>
+    <div id="clock"></div>
   </div>
 
-  <video id="player" controls playsinline></video>
+  <video id="videoPlayer" controls autoplay></video>
 
-  <div id="viewCount">Loading views...</div>
+  <div class="view-count" id="viewCount">Loading views...</div>
 
-  <div class="content">
-    <img id="poster" class="poster" src="" alt="Poster">
-    <div class="movie-title" id="title">Loading title...</div>
-    
-    <div class="review" id="description">Loading description...</div>
-    
-    <button class="download-btn" id="downloadBtn">Download</button>
+  <div class="poster-section">
+    <img id="poster" src="" alt="Movie Poster"/>
+    <h2 id="movieTitle"></h2>
   </div>
 
-  <!-- Plyr JS -->
-  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.min.js"></script>
+  <div class="review" id="description">Loading description...</div>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <button class="download-btn" onclick="location.href='download.html?id='+movieId">Download Now</button>
+
+  <div class="related-section">
+    <h3>Related Movies</h3>
+    <div class="related-grid" id="relatedMovies"></div>
+  </div>
 
   <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAS11X8mZDlVZUy2qhzijO35dS4q7GhQtg",
-      authDomain: "pktflix2.firebaseapp.com",
-      databaseURL: "https://pktflix2-default-rtdb.firebaseio.com",
-      projectId: "pktflix2",
-      storageBucket: "pktflix2.firebasestorage.app",
-      messagingSenderId: "45953017812",
-      appId: "1:45953017812:web:006ac4868de1f216ea9841"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    const videoPlayer = document.getElementById('videoPlayer');
+    const movieId = new URLSearchParams(window.location.search).get('id');
 
-    // Get movie ID from URL
-    const params = new URLSearchParams(window.location.search);
-    const movieId = params.get("id");
-
-    fetch('videos.json')
+    fetch('assets/movies.json')
       .then(res => res.json())
       .then(data => {
-        const movie = data.find(m => m.id === movieId);
-        if (!movie) return;
-
-        // Load player
-        const player = new Plyr('#player');
-        const video = document.getElementById('player');
-        video.src = movie.video;
-
-        // Set metadata
-        document.getElementById('title').innerText = movie.title;
+        const movie = data.find(item => item.id === movieId);
+        if (!movie) return alert('Movie not found');
+        
+        // Poster, title, description
         document.getElementById('poster').src = movie.thumbnail;
+        document.getElementById('movieTitle').innerText = movie.title;
         document.getElementById('description').innerText = movie.description;
 
+        // Video setup
+        if (Hls.isSupported() && movie.video.endsWith('.m3u8')) {
+          const hls = new Hls();
+          hls.loadSource(movie.video);
+          hls.attachMedia(videoPlayer);
+        } else {
+          videoPlayer.src = movie.video;
+        }
+
         // View Count
-        const ref = database.ref("views/" + movieId);
-        ref.transaction(current => (current || 0) + 1);
-        ref.on("value", snapshot => {
-          const count = snapshot.val() || 0;
-          document.getElementById("viewCount").innerText = count + " views";
+        fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`, {
+          method: 'PATCH',
+          body: JSON.stringify({ viewed: Date.now() }),
         });
 
-        // Download
-        document.getElementById("downloadBtn").addEventListener("click", () => {
-          window.location.href = "download.html?id=" + movieId;
-        });
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById('title').innerText = "Movie not found.";
+        fetch(`https://pktflix2-default-rtdb.firebaseio.com/views/${movieId}.json`)
+          .then(res => res.json())
+          .then(data => {
+            const count = data ? Object.keys(data).length : 1;
+            document.getElementById('viewCount').innerText = `👁️ ${count} views`;
+          });
+
+        // Related
+        const related = data.filter(item => item.type === movie.type && item.id !== movieId).slice(0, 6);
+        document.getElementById('relatedMovies').innerHTML = related.map(rel => `
+          <a href="watch.html?id=${rel.id}">
+            <img src="${rel.thumbnail}" alt="${rel.title}">
+          </a>
+        `).join('');
       });
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+      document.getElementById('clock').innerText = `${hours}:${minutes} ${ampm} | ${date}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
+
 </body>
 </html>
