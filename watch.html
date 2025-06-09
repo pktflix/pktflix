@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Watch - PKT Flix</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>PKT Flix - Watch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background: #000;
+      margin: 0;
+      background-color: #000;
       color: #fff;
       font-family: Arial, sans-serif;
-      margin: 0;
+      text-align: center;
     }
 
     header {
+      background: #111;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px;
-      background-color: #111;
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 22px;
       color: #00f0ff;
       text-decoration: none;
       animation: glow 1.5s infinite alternate;
@@ -39,44 +38,47 @@
       color: #ccc;
     }
 
-    .container {
-      padding: 15px;
-      text-align: center;
+    .video-container {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16/9;
+      margin-top: 10px;
     }
 
-    .video-container {
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 16/9;
-      margin-bottom: 15px;
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .poster {
-      max-width: 150px;
-      margin: 10px auto;
+      width: 130px;
       border-radius: 8px;
+      margin-top: 15px;
     }
 
     .title {
-      font-size: 24px;
+      font-size: 22px;
       margin: 10px 0;
+      font-weight: bold;
     }
 
-    .review {
+    .review-box {
+      margin: 15px auto;
+      max-width: 600px;
       background: #1a1a1a;
       padding: 15px;
       border-radius: 10px;
-      margin: 15px auto 30px;
-      max-width: 600px;
-      animation: slideIn 1.2s ease;
+      animation: fadeIn 1s ease-in;
     }
 
-    @keyframes slideIn {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .download-btn {
+      margin-top: 30px;
       background: linear-gradient(to right, #ff416c, #ff4b2b);
       color: white;
       padding: 15px 35px;
@@ -86,6 +88,7 @@
       cursor: pointer;
       animation: pulse 1.5s infinite;
       display: inline-block;
+      text-decoration: none;
     }
 
     @keyframes pulse {
@@ -95,21 +98,15 @@
     }
 
     @media (max-width: 600px) {
+      .poster {
+        width: 90px;
+      }
       .title {
         font-size: 18px;
       }
-
-      .review {
-        padding: 12px;
-      }
-
       .download-btn {
         font-size: 18px;
         padding: 12px 25px;
-      }
-
-      .poster {
-        max-width: 100px;
       }
     }
   </style>
@@ -117,45 +114,48 @@
 <body>
 
   <header>
-    <a class="logo" href="index.html">PKT Flix</a>
+    <a href="index.html" class="logo">PKT Flix</a>
     <div id="clock"></div>
   </header>
 
-  <div class="container">
-    <div class="video-container">
-      <video id="videoPlayer" controls poster="">
-        <source id="videoSource" src="" type="application/x-mpegURL">
-        Your browser does not support HTML5 video.
-      </video>
-    </div>
-
-    <img id="poster" class="poster" src="" alt="Poster">
-    <div class="title" id="movieTitle">Loading...</div>
-    <div class="review" id="reviewBox">Please wait...</div>
-
-    <a id="downloadBtn" class="download-btn" href="#">⬇ Download Now</a>
+  <div class="video-container">
+    <video id="videoPlayer" controls poster="">
+      <source id="videoSource" src="" type="application/x-mpegURL">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
+  <img id="poster" class="poster" src="" alt="Poster">
+  <div class="title" id="movieTitle">Loading...</div>
+  <div class="review-box" id="reviewBox">Please wait...</div>
+
+  <a id="downloadBtn" class="download-btn" href="#">⬇ Download Now</a>
+
   <script>
-    // Clock (12-hour with AM/PM)
+    // Clock
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+      const time = now.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+      });
       const date = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()}`;
       document.getElementById('clock').textContent = `${time} | ${date}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Load movie from JSON by ID
+    // Load data from JSON
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get("id");
 
     fetch("videos.json")
       .then(res => res.json())
       .then(data => {
-        const movie = data.find(item => item.id === movieId);
-        if (!movie) return alert("Movie not found");
+        const movie = data.find(m => m.id === movieId);
+        if (!movie) return alert("Movie not found!");
 
         document.getElementById("movieTitle").innerText = movie.title;
         document.getElementById("poster").src = movie.thumbnail;
