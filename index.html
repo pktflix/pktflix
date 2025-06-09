@@ -2,188 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PKT Flix</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    /* Basic Reset + Animation */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: #111;
-      border-bottom: 1px solid #333;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      background: linear-gradient(45deg, #00f, #0ff, #0f0, #ff0, #f00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: lighting 5s infinite linear;
-    }
-
-    @keyframes lighting {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-
-    .datetime {
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .channel-banner-slider {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding: 10px;
-      background: #111;
-    }
-
-    .channel-banner-slider img {
-      height: 60px;
-      margin: 0 10px;
-      border-radius: 8px;
-      background: #222;
-    }
-
-    .section-title {
-      font-size: 20px;
-      padding: 10px 20px;
-      border-bottom: 1px solid #444;
-      margin-top: 20px;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 15px;
-      padding: 15px 20px;
-    }
-
-    .video-card {
-      background: #111;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s;
-    }
-
-    .video-card:hover {
-      transform: scale(1.03);
-    }
-
-    .video-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .video-title {
-      padding: 8px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      .logo {
-        font-size: 18px;
-      }
-
-      .datetime {
-        font-size: 12px;
-      }
-
-      .channel-banner-slider img {
-        height: 40px;
-      }
-
-      .video-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cleppr-player@latest"></script>
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <div class="logo">PKT Flix</div>
-    <div class="datetime" id="datetime">--:-- -- | --/--/----</div>
+  <header class="header">
+    <div class="logo lighting">PKT <span>Flix</span></div>
+    <div class="clock-date" id="clockDate"></div>
   </header>
 
-  <!-- Banner Slider (Channel style) -->
-  <div class="channel-banner-slider">
-    <a href="https://example1.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Sony_TV_Logo.svg/200px-Sony_TV_Logo.svg.png" alt="Sony"></a>
-    <a href="https://example2.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Star_Plus_Logo.svg/200px-Star_Plus_Logo.svg.png" alt="Star Plus"></a>
-    <a href="https://example3.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Zee_TV_logo.svg/200px-Zee_TV_logo.svg.png" alt="Zee TV"></a>
-    <!-- আরও লোগো -->
-  </div>
+  <!-- Banner Slider -->
+  <section class="channel-banner-slider" id="bannerSlider"></section>
 
-  <!-- Movies Section -->
-  <div class="section-title">🎬 Popular Movies</div>
-  <div class="video-grid">
-    <!-- Sample Video Cards -->
-    <div class="video-card">
-      <a href="watch.html?id=1">
-        <img src="https://via.placeholder.com/320x180.png?text=Movie+1" alt="Movie 1">
-        <div class="video-title">Movie Title 1</div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="watch.html?id=2">
-        <img src="https://via.placeholder.com/320x180.png?text=Movie+2" alt="Movie 2">
-        <div class="video-title">Movie Title 2</div>
-      </a>
-    </div>
-    <!-- Add more as needed -->
-  </div>
+  <!-- Movies -->
+  <section class="section">
+    <h2 class="section-title">🎬 Movies</h2>
+    <div class="video-grid" id="movieList"></div>
+  </section>
 
-  <!-- Series Section -->
-  <div class="section-title">📺 Latest Series</div>
-  <div class="video-grid">
-    <div class="video-card">
-      <a href="watch.html?id=101">
-        <img src="https://via.placeholder.com/320x180.png?text=Series+1" alt="Series 1">
-        <div class="video-title">Series Title 1</div>
-      </a>
-    </div>
-    <div class="video-card">
-      <a href="watch.html?id=102">
-        <img src="https://via.placeholder.com/320x180.png?text=Series+2" alt="Series 2">
-        <div class="video-title">Series Title 2</div>
-      </a>
-    </div>
-    <!-- Add more as needed -->
-  </div>
+  <!-- Series -->
+  <section class="section">
+    <h2 class="section-title">📺 Series</h2>
+    <div class="video-grid" id="seriesList"></div>
+  </section>
 
-  <!-- Clock Script -->
-  <script>
-    function updateDateTime() {
-      const now = new Date();
-      const time = now.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      });
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
-      const date = `${day}/${month}/${year}`;
-      document.getElementById('datetime').textContent = `${time} | ${date}`;
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-  </script>
+  <!-- Scripts -->
+  <script src="js/clock.js"></script>
+  <script src="js/dataLoader.js"></script>
 </body>
 </html>
