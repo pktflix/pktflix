@@ -133,7 +133,7 @@
     let downloadLink = '';
 
     // Load ads
-    fetch('assets/ads.json')
+    fetch('ads.json')
       .then(res => res.json())
       .then(data => {
         const adTop = data[0];
@@ -147,7 +147,7 @@
       });
 
     // Load movie link
-    fetch('assets/movies.json')
+    fetch('videos.json')
       .then(res => res.json())
       .then(movies => {
         const movie = movies.find(m => m.id === movieId);
