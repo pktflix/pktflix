@@ -35,14 +35,29 @@
 
 
 
+
+
+
+
+
+
   
+
+  {
+    "id": "mn2",
+    "title": "Mohanagar S2",
+    "type": "series",
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4FMIpNCbfmWmNimCc1qa5BwVKsPBkenbZTZ_MdUqLCw2lsQnODYwAqPw&s=10",
+    "video": "https://pixeldra.in/api/file/tjheMTvn?download",
+    "description": "One fateful night, a police station in Bangladesh, and a motley crowd consisting of criminals, an eminent industrialist, media, general public.."
+  },
   {
     "id": "mn1",
     "title": "Mohanagar S1",
     "type": "series",
     "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_0R2m7cZ3oxUq0hMSPbA6-Mm5G79PQfwFeVE_dtnaYmLU8dC7GdnqlTHK&s=10",
     "video": "https://pixeldra.in/api/file/vmfd1cjm?download",
-    "description": "Chokkor 302 is a crime thriller that keeps you hooked from the very beginning. The story follows a mysterious case full of suspense and unexpected twists. It's a type of film we don't often see in Bangladeshi cinema. The acting is excellent from every character."
+    "description": "One fateful night, a police station in Bangladesh, and a motley crowd consisting of criminals, an eminent industrialist, media, general public.."
   },
   
   {
