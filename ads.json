@@ -8,8 +8,8 @@
     "code": ""
   },
   "popupAd": {
-    "enabled": false,
-    "html": ""
+    "enabled": true,
+    "html": "http://pktflix.com"
   },
   "skipAd": {
     "enabled": false,
