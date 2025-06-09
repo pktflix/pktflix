@@ -2,156 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Watch - PKT Flix</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PKT Flix - Watch</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: #fff;
+      font-family: Arial, sans-serif;
+      background: #0e0e0e;
+      color: white;
     }
+
     header {
+      background: #111;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      background: linear-gradient(90deg, #111, #222);
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .logo {
-      font-size: 2em;
-      background: linear-gradient(90deg, #f0f, #0ff, #f0f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 3s linear infinite;
-    }
-    @keyframes glow {
-      0% { filter: brightness(100%); }
-      50% { filter: brightness(150%); }
-      100% { filter: brightness(100%); }
-    }
-    .container {
-      padding: 20px;
-    }
-    .poster {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-    .video-player {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16/9;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-    .review-box {
-      background-color: #1e1e1e;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    .download-btn {
-      display: inline-block;
-      padding: 12px 30px;
-      background: linear-gradient(45deg, #ff0066, #ff6600);
       color: #fff;
-      font-size: 1.2em;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 50px;
-      box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
-      animation: pulse 2s infinite;
-      margin-bottom: 30px;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 102, 0.5); }
-      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 102, 0.8); }
-      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 102, 0.5); }
-    }
-    .related {
-      margin-top: 50px;
-    }
-    .related h2 {
-      margin-bottom: 15px;
-    }
-    .related-movies {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 15px;
-    }
-    .related-movies img {
-      width: 100%;
-      border-radius: 8px;
     }
 
-    @media (max-width: 600px) {
-      header { font-size: 1.2em; }
-      .logo { font-size: 1.5em; }
-      .download-btn { font-size: 1em; padding: 10px 20px; }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff0055;
+      text-shadow: 0 0 10px #ff0055;
+    }
+
+    .clock {
+      font-size: 14px;
+    }
+
+    .player-wrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    .details {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .details img {
+      width: 150px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .movie-title {
+      font-size: 20px;
+      margin: 10px 0;
+      color: #ffcc00;
+    }
+
+    .review {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #1a1a1a;
+      border-left: 5px solid #ffcc00;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .download-btn {
+      display: block;
+      margin: 30px auto;
+      padding: 15px 30px;
+      font-size: 20px;
+      color: white;
+      background: linear-gradient(135deg, #ff0055, #ffcc00);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff0055;
+      animation: pulse 1.5s infinite;
+      text-decoration: none;
+      text-align: center;
+      width: max-content;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px #ff0055;
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px #ffcc00;
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px #ff0055;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .details img {
+        width: 100px;
+      }
+
+      .movie-title {
+        font-size: 16px;
+      }
+
+      .review {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .download-btn {
+        font-size: 18px;
+        padding: 12px 20px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo"><a href="index.html" style="text-decoration:none;">PKT Flix</a></div>
-    <div id="clock"></div>
+    <div class="logo">PKT Flix</div>
+    <div class="clock" id="clock">Loading...</div>
   </header>
 
-  <div class="container">
-    <img id="poster" class="poster" src="" alt="Movie Poster" />
-    <video id="player" class="video-player" controls></video>
-    <div id="view-count"></div>
-    <div id="review" class="review-box"></div>
-    <a id="downloadBtn" class="download-btn" href="#">Download Now</a>
-
-    <div class="related">
-      <h2>Related Movies</h2>
-      <div id="related" class="related-movies"></div>
-    </div>
+  <div class="player-wrapper">
+    <video id="videoPlayer" controls></video>
   </div>
 
+  <div class="details">
+    <img id="poster" src="" alt="Poster" />
+    <div class="movie-title" id="movieTitle">Loading Title...</div>
+  </div>
+
+  <div class="review" id="reviewBox">
+    Loading review...
+  </div>
+
+  <a href="download.html" class="download-btn">Download Now</a>
+
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const movieId = parseInt(params.get("id"));
-
-    fetch('assets/movies.json')
-      .then(res => res.json())
-      .then(movies => {
-        const movie = movies.find(m => m.id === movieId);
-        if (!movie) return;
-
-        document.getElementById('poster').src = movie.poster;
-        document.getElementById('player').src = movie.video;
-        document.getElementById('view-count').textContent = `Views: ${movie.views}`;
-        document.getElementById('review').textContent = movie.review;
-        document.getElementById('downloadBtn').href = `download.html?id=${movie.id}`;
-
-        const relatedContainer = document.getElementById('related');
-        const related = movies.filter(m => m.category === movie.category && m.id !== movie.id);
-        related.forEach(m => {
-          const a = document.createElement('a');
-          a.href = `watch.html?id=${m.id}`;
-          const img = document.createElement('img');
-          img.src = m.poster;
-          img.alt = m.title;
-          a.appendChild(img);
-          relatedContainer.appendChild(a);
-        });
-      });
-
     // Clock
     function updateClock() {
       const now = new Date();
-      document.getElementById('clock').textContent = now.toLocaleTimeString();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const year = now.getFullYear();
+      document.getElementById("clock").innerText =
+        `${hours}:${minutes} ${ampm} | ${day}/${month}/${year}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    // Load video + data from JSON (mock example)
+    fetch("assets/movies.json")
+      .then(res => res.json())
+      .then(data => {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        const movie = data.find(m => m.id === id);
+
+        if (movie) {
+          // Load poster, title, review
+          document.getElementById("poster").src = movie.poster;
+          document.getElementById("movieTitle").innerText = movie.name;
+          document.getElementById("reviewBox").innerText = movie.review;
+
+          // Load video
+          const video = document.getElementById("videoPlayer");
+          if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(movie.video);
+            hls.attachMedia(video);
+          } else {
+            video.src = movie.video;
+          }
+        }
+      });
   </script>
 </body>
 </html>
