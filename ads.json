@@ -38,7 +38,8 @@
     "code": ""
   },
   "timerPageAd": {
-    "enabled": false,
-    "code": ""
+    "enabled": true,
+    "code": "<script async="async" data-cfasync="false" src="//gateperfectly.com/cd35f725f7c72e834c9f29db84a1fad5/invoke.js"></script>
+<div id="container-cd35f725f7c72e834c9f29db84a1fad5"></div>"
   }
 }
