@@ -46,14 +46,83 @@
   <script src="js/clock.js"></script>
   <script src="js/main.js"></script>
 
-   <title>Hit Counter</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="hit-counter"></div>
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-    <script src="script.js"></script>
- 
+   
+  <p>আজকের ভিজিট কাউন্ট: <span id="view-count">0</span></p>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase configuration (নিজের Firebase project info বসাও)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAS11X8mZDlVZUy2qhzijO35dS4q7GhQtg",
+      authDomain: "pktflix2.firebaseapp.com",
+      databaseURL: "https://pktflix2-default-rtdb.firebaseio.com",
+      projectId: "pktflix2",
+      storageBucket: "pktflix2.firebasestorage.app",
+      messagingSenderId: "45953017812",
+      appId: "1:45953017812:web:006ac4868de1f216ea9841"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // আজকের তারিখ (YYYY-MM-DD)
+    const today = new Date().toISOString().slice(0, 10);
+
+    // localStorage এর key (একটা স্ট্যাটিক key, কারণ শুধু Home page count)
+    const localStorageKey = 'home_visited_date';
+
+    // View count রেফারেন্স (dailyViews/home/YYYY-MM-DD)
+    const viewCountRef = database.ref(`dailyViews/home/${today}`);
+
+    // ভিজিট কাউন্ট বাড়ানোর ফাংশন
+    function incrementDailyVisitCount() {
+      const lastVisitDate = localStorage.getItem(localStorageKey);
+
+      if (lastVisitDate === today) {
+        console.log("আজকের জন্য ইতিমধ্যে ভিজিট কাউন্ট হয়েছে।");
+        return; // আজকের জন্য কাউন্ট করবে না
+      }
+
+      localStorage.setItem(localStorageKey, today);
+
+      viewCountRef.transaction(currentCount => {
+        return (currentCount || 0) + 1;
+      }, (error, committed, snapshot) => {
+        if (error) {
+          console.error('Visit count update failed:', error);
+        } else if (!committed) {
+          console.log('Visit count update not committed.');
+        } else {
+          console.log(`Home page visit count for ${today} is now ${snapshot.val()}`);
+          updateViewCountUI(snapshot.val());
+        }
+      });
+    }
+
+    // View count UI আপডেট করার ফাংশন
+    function updateViewCountUI(count) {
+      const el = document.getElementById('view-count');
+      if(el) el.innerText = count;
+    }
+
+    // আজকের ভিউ কাউন্ট লোড করার ফাংশন
+    function loadTodayVisitCount() {
+      viewCountRef.once('value', snapshot => {
+        const count = snapshot.val() || 0;
+        updateViewCountUI(count);
+      });
+    }
+
+    // পেজ লোড হলে ফাংশনগুলো চালাও
+    window.onload = function() {
+      loadTodayVisitCount();
+      incrementDailyVisitCount();
+    };
+  </script>
+
 </body>
 </html>
