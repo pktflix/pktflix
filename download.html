@@ -186,15 +186,15 @@
       .then(res => res.json())
       .then(ads => {
         const adTop = ads[Math.floor(Math.random() * ads.length)];
-        const adBottom = ads[Math.floor(Math.random() * ads.length)];
+        const timerPageAd = ads[Math.floor(Math.random() * ads.length)];
 
         document.getElementById('adTop').innerHTML =
           `<img src="${adTop.image}" alt="Ad" style="width:100%; height:100%; object-fit:cover;">`;
         document.getElementById('adTop').onclick = () => window.open(adTop.link, '_blank');
 
-        document.getElementById('adBottom').innerHTML =
+        document.getElementById('timerPageAd').innerHTML =
           `<img src="${adBottom.image}" alt="Ad" style="width:100%; height:100%; object-fit:cover;">`;
-        document.getElementById('adBottom').onclick = () => window.open(adBottom.link, '_blank');
+        document.getElementById('timerPageAd').onclick = () => window.open(adBottom.link, '_blank');
       });
   </script>
 
