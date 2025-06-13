@@ -1,5 +1,30 @@
 [
+
  
+ {
+    "id": "suzume",
+    "title": "Suzume",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/Ic5y7fJZ-zI/maxresdefault.jpg",
+    "video": "https://pub-01c40ff5657b429fa6c8cb74903caf8e.r2.dev/CINEFREAK.NET%20-%20Suzume%20no%20Tojimari%20(2022)%20BluRay%20[Hindi-Japanese]%201080p%20Esub.mkv",
+    "description": "As the skies turn red and the planet trembles, Japan stands on the brink of disaster. However, a determined teenager named Suzume sets out on a mission to save her country. Able to see supernatural forces that others cannot ."
+  },
+ {
+    "id": "tm2025",
+    "title": "The Monkey",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/3jfTApWPX7I/hq720.jpg",
+    "video": "https://pub-01c40ff5657b429fa6c8cb74903caf8e.r2.dev/CINEFREAK.NET%20-%20The%20Monkey%20(2025)%20WEB-DL%20[Hindi-English]%201080p%20ESub.mkv",
+    "description": "When twin brothers find a mysterious wind-up monkey, a series of outrageous deaths tears their family apart. Twenty-five years later, the monkey begins a new killing spree, forcing the estranged siblings to confront the cursed toy."
+  },
+ {
+    "id": "fd2025",
+    "title": "Final Destination Bloodlines",
+    "type": "movie",
+    "thumbnail": "https://i.ytimg.com/vi/KnWzz0n60pE/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD3bnvBN3fwpkr5pZACuLb1t6nQ5w",
+    "video": "https://pub-01c40ff5657b429fa6c8cb74903caf8e.r2.dev/CINEFREAK.TOP%20-%20Final%20Destination%20BloodLines%20(2025)%20WEB-DL%20[Hindi-English]%201080p.mkv",
+    "description": "Plagued by a violent and recurring nightmare, a college student heads home to track down the one person who might be able to break the cycle of death and save her family from the grisly demise that inevitably awaits them all."
+  },
  {
     "id": "dd2024",
     "title": "Deyaler Desh",
