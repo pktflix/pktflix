@@ -11,7 +11,7 @@ fetch('tv.json')
     });
   });
 
-fetch('video.json')
+fetch('videos.json')
   .then(res => res.json())
   .then(data => {
     const movies = data.filter(item => item.type === 'movie').slice(0, 20);
