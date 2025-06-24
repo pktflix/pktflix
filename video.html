@@ -136,6 +136,34 @@
       border-radius: 10px;
       border: 1px dashed #444;
     }
+
+    
+    /* Notice bar below video player */
+    #noticeBar {
+      position: relative;
+      width: 100%;
+      background: #ff5722;
+      color: white;
+      font-weight: bold;
+      padding: 8px 0;
+      overflow: hidden;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      user-select: none;
+      white-space: nowrap;
+    }
+    #noticeBar span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: slideNotice 15s linear infinite;
+    }
+    @keyframes slideNotice {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
   </style>
 </head>
 <body>
