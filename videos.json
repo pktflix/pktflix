@@ -1,6 +1,14 @@
 [
 
+{
+    "id": "janeman2012",
+    "title": "Tiger 3",
+    "type": "movie",   
+ "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT51clQ9VPRgSZ1wwFiHDA2HByVy-h64aFlhkadWPDxxQkEhbwQduZdBYqd&s=10",
 
+    "video": "http://103.145.232.246/Data/movies/indianbangla/2000-2021/Jaaneman%20%282012%29/Jaaneman%20%282012%29.mkv",
+    "description": "A Income Tax officer, Amay Patnaik, confronts the corrupt nexus in Bhoj. Beneath the veneer of honesty lies a sinister operation tied to Dada Bhai, a revered politician. As Amay unravels layers of deceit buried in fields and fortresses, one question looms: will justice prevail, or will power silence the truth?"
+  },
 {
     "id": "rd2",
     "title": "Tiger 3",
